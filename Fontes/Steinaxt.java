@@ -17,15 +17,16 @@ class Steinaxt {
 		try {
 			f = new File(args[0]);
 			s = new Scanner(f);
-			b = new Interpretador();
+			
 			
 			int i = 0;
 			while(s.hasNext()) {
 				linhas[i] = s.nextLine();
 				i++;
 			}
-			
-			b.interpreta(linhas);
+			b = new Interpretador(linhas);
+			b.Test();
+			b.interpreta();
 		} catch (IOException e) {
 			System.out.println("Nao foi possivel ler o arquivo: " + (args.length > 0 ? args[0] : "(desconhecido)"));
 		}
