@@ -26,8 +26,8 @@ class Steinaxt {
 			}
 			
 			b.interpreta(linhas);
-		} catch {
-			
+		} catch (IOException e) {
+			System.out.println("Nao foi possivel ler o arquivo: " + (args.length > 0 ? args[0] : "(desconhecido)"));
 		}
     }
 }
