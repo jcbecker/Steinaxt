@@ -7,51 +7,29 @@ Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
 
 class Interpretador {
 	private String linhas[];
+	public Variavel vars [];
 	
-	public void interpreta(String l[]) {
-		
+	public Interpretador(String l[]){
 		this.linhas = l;
-		String [] variaveis = new String[2000];
-		Real [] valores = new Real[2000];//usar real.setValor
+		vars = new Variavel [1000];
+	}
+	
+	public void Test (){
+		vars [0]= new Int ("number",7);
+		vars [1]= new Real ("pi",3.1415);
+		vars [2]= new Text ("texto","James_hetfield");
+		System.out.println (vars[0].getNome() +" = " +((Int)vars[0]).getValor());
+		System.out.println (vars[1].getNome() +" = "+((Real)vars[1]).getValor());
+		System.out.println (vars[2].getNome() +" = "+((Text)vars[2]).getConteudo());
 		
-		int i=0, n=0, tVariaveis=0, a=0, b=0,z=0, volta=0;
-		String linhaAtual, compara="vazio", aux="vazio";
-		
-		Variavel objVariavel = new Variavel();
-		
-		String [] variaveis = new String[2000];
-		double [] valores = new double[2000];
-		
-		for(int i = 0; i < linhas.length; i++) {
-			if(linhas[i] != null) {
+	}
+	
+	public void interpreta() {
+		for(int i = 0; i < this.linhas.length; i++) {
+			if(this.linhas[i] != null) {
 				// TODO: interpretar a linha
-				linhaAtual = linhas[i];
-				
-				if(linhaAtual.endsWith("?")){ //identifica que é uma declaração de variavel
-					variaveis[n]=linhaAtual.replaceAll("?","");//tira o ? da variavel
-					valores[n]=0; /*variavel inicializa com 0*/
-					n++;
-					tVariaveis++;
-				}
-				
-				if(linhaAtual.contains("=")){//procura token de atribuição
-					//chama a verificacao do operador
-				}
-				if(linhaAtual.contains("if")){
-					//chama a verificacao da condicao
-				}	
-				if(linhaAtual.contains("fi")){
-					//chama a verificacao do fim condicao
-				}
-				if(linhaAtual.contains("loop")){
-					//chama a verificacao do laco
-				}
-				if(linhaAtual.contains("pool")){
-					//chama a verificacao do fim do laco
-				}
-				
+				System.out.println("Linha " + (i + 1) + ": " + this.linhas[i]);
 			}
 		}
 	}
 }
-
