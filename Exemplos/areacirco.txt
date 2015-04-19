@@ -1,8 +1,8 @@
-real pi;
-real area;
-real raio;
-pi = 3.1415;
-raio = 5;
-raio = raio*raio;
-area = area * raio;
-show (“a area eh “ area);
+real pi
+real area
+real raio
+pi = 3.1415
+raio = 5
+raio = raio*raio
+area = area * raio
+show (“a area eh “, area)

@@ -8,10 +8,13 @@ Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
 class Interpretador {
 	private String linhas[];
 	public Variavel vars [];
+	private String linha;
+	public int numvar;//vai conter o numero de variaveis alocadas
 	
 	public Interpretador(String l[]){
 		this.linhas = l;
 		vars = new Variavel [1000];
+		numvar = 0;
 	}
 	
 	public void Test (){
@@ -24,12 +27,62 @@ class Interpretador {
 		
 	}
 	
-	public void interpreta() {
-		for(int i = 0; i < this.linhas.length; i++) {
+	public void interpreta(int i) {//parametro int para poder fazer recurção na interpretação, i = linha
+		for(; i < this.linhas.length; i++) {
 			if(this.linhas[i] != null) {
-				// TODO: interpretar a linha
-				System.out.println("Linha " + (i + 1) + ": " + this.linhas[i]);
+				linha = linhas[i].trim();//faz cópia e retira tabulação, espaços no inicio e final
+//				linha = linha.replaceAll(" ", "");
+				if (linha.startsWith("int ")){
+					System.out.println ("Declaração de inteiro na linha "+ (i+1));
+					
+				}
+				else if (linha.startsWith ("real ")){
+					System.out.println ("Declaração de real na linha"+ (i+1));
+					
+				}
+				
+				else if (linha.startsWith ("text ")){
+					System.out.println ("Declaração de string na linha"+ (i+1));
+					
+				}
+				
+				
+				else if (linha.startsWith ("loop ")){
+					System.out.println ("Inicio de laço na linha "+ (i+1));
+					
+				}
+				
+				else if (linha.startsWith ("if ")){
+					System.out.println ("If reconhecido na linha "+ (i+1));
+					
+				}
+				
+				else if (linha.startsWith ("show")){
+					System.out.println("Comando de saida reconhecido na linha "+ (i+1));
+					
+				}
+				
+				else if (linha.contains ("=")){
+					System.out.println ("Atribuição reconhecida na linha "+(i+1));
+					
+				}
+				
+//				System.out.println("Linha " + (i + 1) + ":" + linha);
+				
+				
+				
+				
+				
+				
+				
+				
+				
 			}
 		}
 	}
+	
+	
+	
+	
+	
 }
