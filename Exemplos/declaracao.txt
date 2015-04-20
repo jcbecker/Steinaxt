@@ -1,10 +1,10 @@
-int i, j =  3, k, x1, x2
+int i, j =  3, k, x1, x2, jamais, identico
 real const, pi = 3.1415, r, q
 text frase, nome
-int x3
-int a, j
+int x3, x4=4, x5
+int x6=		  		  	6  		
 real raio
 int cent=100
-int n+symbol
-int
-
+int nsymbol, show2=202020
+int 
+int a, 	  pj   	   , pidentico

@@ -18,12 +18,12 @@ class Interpretador {
 	}
 	
 	public void Test (){
-		vars [0]= new Int ("number",7);
-		vars [1]= new Real ("pi",3.1415);
-		vars [2]= new Text ("texto","James_hetfield");
-		System.out.println (vars[0].getNome() +" = " +((Int)vars[0]).getValor());
-		System.out.println (vars[1].getNome() +" = "+((Real)vars[1]).getValor());
-		System.out.println (vars[2].getNome() +" = "+((Text)vars[2]).getConteudo());
+		vars [numvar]= new Int ("number",7);
+		numvar++;
+		vars [numvar]= new Real ("pi",3.1415);
+		numvar++;
+		vars [numvar]= new Text ("texto","James_hetfield");
+		numvar++;
 		
 	}
 	
@@ -31,9 +31,97 @@ class Interpretador {
 		for(; i < this.linhas.length; i++) {
 			if(this.linhas[i] != null) {
 				linha = linhas[i].trim();//faz cópia e retira tabulação, espaços no inicio e final
-//				linha = linha.replaceAll(" ", "");
-				if (linha.startsWith("int ")){
+				
+				
+				if (linha.startsWith("int ")){//declaração de inteiro
+					
+					
 					System.out.println ("Declaração de inteiro na linha "+ (i+1));
+					String varsline = new String (linha.substring (4));
+					if (!(varsline.isEmpty())){
+						if (varsline.contains(",")){//declara mais que um inteiro
+							String[] varofline = varsline.split(",");
+							
+							for (int k=0; k<varofline.length; k++){
+								if (varofline[k].contains("=")){
+									
+									String[] atributo = varofline[k].split("=");
+									
+									if (atributo.length != 2){
+										System.out.println ("Erro na linha "+(i+1)+" declaração não reconhecida");
+										System.out.println ("Erro perto de "+ varofline[k]);
+										return ;
+									}
+									varofline[k]=atributo[0].trim();
+									int a= 0;
+									try{
+										a= Integer.parseInt(atributo[1].trim());
+									}catch (NumberFormatException e) {
+										System.out.println("Erro na linha "+(i+1)+" declaração não reconhecida para catch numb");
+										System.out.println ("Erro perto de "+ varofline[k]);
+										return ;
+									}
+									if (validname(varofline[k], i+1)){
+										vars [numvar]= new Int (varofline[k],a);
+										numvar++;
+									}else{
+										return;
+									}
+								}
+								else{//declara sem atribuição
+									varofline[k]=varofline[k].trim();
+									if (validname(varofline[k], i+1)){
+										vars [numvar]= new Int (varofline[k],0);
+										numvar++;
+									}else{
+										return;
+									}
+								}
+								System.out.println (varofline[k]);
+							}
+						}else{
+							if (varsline.contains("=")){//uma variavel com atrbuição
+								String[] atributo = varsline.split("=");
+								if (atributo.length != 2){
+									System.out.println ("Erro na linha "+(i+1)+" declaração não reconhecida");
+									System.out.println ("Erro perto de "+ varsline);
+									return ;
+								}
+								varsline=atributo[0].trim();
+								int a= 0;
+								try{
+									a= Integer.parseInt(atributo[1].trim());
+								}catch (NumberFormatException e) {
+									System.out.println("Erro na linha "+(i+1)+" declaração não reconhecida para catch numb");
+									System.out.println ("Erro perto de "+ varsline);
+									return ;
+								}
+								if (validname(varsline, i+1)){
+									vars [numvar]= new Int (varsline,a);
+									numvar++;
+								}else{
+									return;
+								}
+								
+								
+							}else{//uma variavel sem atribuição
+								varsline=varsline.trim();
+								if (validname(varsline, i+1)){
+									vars [numvar]= new Int (varsline,0);
+									numvar++;
+								}else{
+									return;
+								}
+								
+							}
+								
+						}
+						
+					}else{
+						System.out.println ("Erro na linha "+(i+1)+" declaração não reconhecida");
+						return;
+						
+					}
 					
 				}
 				else if (linha.startsWith ("real ")){
@@ -79,10 +167,74 @@ class Interpretador {
 				
 			}
 		}
+		printVars();
 	}
 	
+	public void printVars(){
+		
+		
+		for (int i = 0; i<numvar; i++){
+			if (vars [i] == null){
+				System.out.println ("não existe variavel na posição "+(i));
+			}
+			else if (vars [i] instanceof Int){
+				System.out.println ("Pos:"+i+" Tipo:int "+"Nome:"+(vars[i].getNome())+" Valor:"+ ((Int)vars[i]).getValor());
+				
+			}
+			
+			else if (vars [i] instanceof Real){
+				System.out.println ("Pos:"+i+" Tipo:real "+"Nome:"+(vars[i].getNome())+" Valor:"+ ((Real)vars[i]).getValor());
+				
+			}
+			
+			else if (vars [i] instanceof Text){
+				System.out.println ("Pos:"+i+" Tipo:text "+"Nome:"+(vars[i].getNome())+" Conteudo:"+ ((Text)vars[i]).getConteudo());
+				
+				
+			}
+			
+			else{
+				System.out.println ("Variavel da posição "+(i+1) +" não reconhecida");
+				
+			}
+			
+		}
+		
+	}
 	
-	
+	public boolean validname(String name, int line){//verifica se string é um nome valido
+		
+		for (int i=0; i<numvar; i++){
+			if (name.equals(vars[i].getNome())){
+				System.out.println ("Erro na linha "+line+" já existe uma variavel com o nome "+name);
+				return false;
+			}
+			
+		}
+		if (name.contains (" ")|| name.contains ("!")|| name.contains ("@")
+		||  name.contains ("#")|| name.contains ("$")|| name.contains ("%")
+		||  name.contains ("&")|| name.contains ("*")|| name.contains ("(")
+		||  name.contains (")")|| name.contains ("-")|| name.contains ("+")
+		||  name.contains ("=")|| name.contains (";")){
+			System.out.println ("Erro na linha "+line+" variavel "+name+" obtem caracter especial");
+			return false;
+			
+		}
+		if ( name.charAt(0) >= '0' && name.charAt(0) <= '9'){
+			System.out.println ("Erro na linha "+line+" variavel "+name+" começa com numero");
+			return false;
+			
+		}
+		
+		if (name.equals("int") || name.equals("real") || name.equals("text") || 
+		name.equals("loop") || name.equals("show") || name.equals("if")){
+			System.out.println ("Erro na linha "+line+" variavel "+name+" com palavra reservada");
+			return false;
+		}
+		
+		
+		return true;
+	}
 	
 	
 }
