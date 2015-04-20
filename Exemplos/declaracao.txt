@@ -6,5 +6,5 @@ int x6=		  		  	6
 real raio
 int cent=100
 int nsymbol, show2=202020
-int 
 int a, 	  pj   	   , pidentico
+real x7= 	 	7.7,  	diametro 	 	=2 	 	

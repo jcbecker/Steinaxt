@@ -127,6 +127,93 @@ class Interpretador {
 				else if (linha.startsWith ("real ")){
 					System.out.println ("Declaração de real na linha"+ (i+1));
 					
+					String varsline = new String (linha.substring (5));
+					if (!(varsline.isEmpty())){
+						if (varsline.contains(",")){//declara mais que um real
+							String[] varofline = varsline.split(",");
+							
+							for (int k=0; k<varofline.length; k++){
+								if (varofline[k].contains("=")){//faz atrbuição
+									
+									String[] atributo = varofline[k].split("=");
+									
+									if (atributo.length != 2){
+										System.out.println ("Erro na linha "+(i+1)+" declaração não reconhecida");
+										System.out.println ("Erro perto de "+ varofline[k]);
+										return ;
+									}
+									varofline[k]=atributo[0].trim();
+									double a= 0.0;
+									try{
+										a= Double.parseDouble(atributo[1].trim());//Double.parseDouble(text);
+									}catch (NumberFormatException e) {
+										System.out.println("Erro na linha "+(i+1)+" declaração não reconhecida para catch numb");
+										System.out.println ("Erro perto de "+ varofline[k]);
+										return ;
+									}
+									if (validname(varofline[k], i+1)){
+										vars [numvar]= new Real (varofline[k],a);
+										numvar++;
+									}else{
+										return;
+									}
+								}
+								else{//declara sem atribuição
+									varofline[k]=varofline[k].trim();
+									if (validname(varofline[k], i+1)){
+										vars [numvar]= new Real (varofline[k],0.0);
+										numvar++;
+									}else{
+										return;
+									}
+								}
+								System.out.println (varofline[k]);
+							}
+						}else{
+							if (varsline.contains("=")){//uma variavel com atrbuição
+								String[] atributo = varsline.split("=");
+								if (atributo.length != 2){
+									System.out.println ("Erro na linha "+(i+1)+" declaração não reconhecida");
+									System.out.println ("Erro perto de "+ varsline);
+									return ;
+								}
+								varsline=atributo[0].trim();
+								double a= 0.0;
+								try{
+									a= Double.parseDouble(atributo[1].trim());
+								}catch (NumberFormatException e) {
+									System.out.println("Erro na linha "+(i+1)+" declaração não reconhecida para catch numb");
+									System.out.println ("Erro perto de "+ varsline);
+									return ;
+								}
+								if (validname(varsline, i+1)){
+									vars [numvar]= new Real (varsline,a);
+									numvar++;
+								}else{
+									return;
+								}
+								
+								
+							}else{//uma variavel sem atribuição
+								varsline=varsline.trim();
+								if (validname(varsline, i+1)){
+									vars [numvar]= new Real (varsline,0.0);
+									numvar++;
+								}else{
+									return;
+								}
+								
+							}
+								
+						}
+						
+					}else{
+						System.out.println ("Erro na linha "+(i+1)+" declaração não reconhecida");
+						return;
+						
+					}
+					
+					
 				}
 				
 				else if (linha.startsWith ("text ")){
