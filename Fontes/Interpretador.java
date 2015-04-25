@@ -36,7 +36,7 @@ class Interpretador {
 				if (linha.startsWith("int ")){//declaração de inteiro
 					
 					
-					System.out.println ("Declaração de inteiro na linha "+ (i+1));
+					System.out.println ("Debug: Declaração de inteiro na linha "+ (i+1));
 					String varsline = new String (linha.substring (4));
 					if (!(varsline.isEmpty())){
 						if (varsline.contains(",")){//declara mais que um inteiro
@@ -77,7 +77,7 @@ class Interpretador {
 										return;
 									}
 								}
-								System.out.println (varofline[k]);
+//								System.out.println ("Debug: "+varofline[k]);
 							}
 						}else{
 							if (varsline.contains("=")){//uma variavel com atrbuição
@@ -125,7 +125,7 @@ class Interpretador {
 					
 				}
 				else if (linha.startsWith ("real ")){
-					System.out.println ("Declaração de real na linha"+ (i+1));
+					System.out.println ("Debug: Declaração de real na linha"+ (i+1));
 					
 					String varsline = new String (linha.substring (5));
 					if (!(varsline.isEmpty())){
@@ -167,7 +167,7 @@ class Interpretador {
 										return;
 									}
 								}
-								System.out.println (varofline[k]);
+//								System.out.println ("Debug: "+varofline[k]);
 							}
 						}else{
 							if (varsline.contains("=")){//uma variavel com atrbuição
@@ -217,28 +217,110 @@ class Interpretador {
 				}
 				
 				else if (linha.startsWith ("text ")){
-					System.out.println ("Declaração de string na linha"+ (i+1));
+					System.out.println ("Debug: Declaração de string na linha"+ (i+1));
 					
 				}
 				
 				
 				else if (linha.startsWith ("loop ")){
-					System.out.println ("Inicio de laço na linha "+ (i+1));
+					System.out.println ("Debug: Inicio de laço na linha "+ (i+1));
 					
 				}
 				
 				else if (linha.startsWith ("if ")){
-					System.out.println ("If reconhecido na linha "+ (i+1));
+					System.out.println ("Debug: If reconhecido na linha "+ (i+1));
 					
 				}
 				
 				else if (linha.startsWith ("show")){
-					System.out.println("Comando de saida reconhecido na linha "+ (i+1));
+					System.out.println("Debug: Comando de saida reconhecido na linha "+ (i+1));
 					
 				}
 				
 				else if (linha.contains ("=")){
-					System.out.println ("Atribuição reconhecida na linha "+(i+1));
+					int posdestino;
+					
+					System.out.println ("Debug: Atribuição reconhecida na linha "+(i+1));
+					
+					String[] atr = linha.split("=");
+					
+					if (atr.length == 2){
+						String destino = new String (atr[0].trim());
+						String ope = new String (atr[1].trim());
+						boolean flagachou=false;
+						for (int j=0; j<numvar;j++){
+							if (destino.equals(vars[j].getNome())){
+								flagachou=true;
+								posdestino = j;
+							}
+						}
+						
+						if (flagachou){
+							System.out.println ("Debug: Destino: "+destino+" Operação: "+ope);
+							flagachou=false;
+							if (ope.contains(" + ")){//faz soma e atribui
+								
+							}else if (ope.contains(" - ")){//faz subtração e atribui
+								
+							}else if (ope.contains(" * ")){//faz multiplicação e atribui
+								
+							}else if (ope.contains(" / ")){//divide e atribui
+								
+							}else if (ope.contains(" % ")){//faz mod e atribui
+								
+							}else{//apenas atribui
+								if (ope.charAt(0) >= '0' && ope.charAt(0) <= '9' || ope.charAt(0) == '-' ){
+									System.out.println ("Debug: é esperado constante");
+									
+								}else{
+									System.out.println ("Debug: é esperado variavel");
+									
+									
+									
+									
+								}
+								
+								
+								
+								
+								
+								
+								
+								
+								for (int j=0; j<numvar;j++){
+									if (ope.equals(vars[j].getNome())){
+										flagachou=true;
+									}
+									
+								}
+								
+								
+								
+								
+								
+							}
+							
+							
+							
+							
+							
+						}else{//não chou variavel de destino
+							System.out.println("Erro era esperado uma atribuição na linha "+(i+1));
+							System.out.println("Mas não foi encontrado uma variavel com o nome de "+destino);
+							return;
+							
+							
+						}
+						
+						
+						
+					}else{//dividio as strings em um numero diferente de dois
+						System.out.println("Comando da linha "+(i+1)+" não reconhecido");
+						return;
+						
+						
+					}
+					
 					
 				}
 				
@@ -281,7 +363,7 @@ class Interpretador {
 			}
 			
 			else{
-				System.out.println ("Variavel da posição "+(i+1) +" não reconhecida");
+				System.out.println ("Variavel da posição "+i +" não reconhecida");
 				
 			}
 			
