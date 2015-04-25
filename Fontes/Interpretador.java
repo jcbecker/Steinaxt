@@ -10,11 +10,13 @@ class Interpretador {
 	public Variavel vars [];
 	private String linha;
 	public int numvar;//vai conter o numero de variaveis alocadas
+	private Ulamanager ula;
 	
 	public Interpretador(String l[]){
 		this.linhas = l;
 		vars = new Variavel [1000];
 		numvar = 0;
+		ula = new Ulamanager();
 	}
 	
 	public void Test (){
@@ -336,9 +338,9 @@ class Interpretador {
 				
 			}
 		}
-		printVars();
+		ula.printVars(vars);
 	}
-	
+/*	
 	public void printVars(){
 		
 		
@@ -370,7 +372,7 @@ class Interpretador {
 		}
 		
 	}
-	
+*/	
 	public boolean validname(String name, int line){//verifica se string é um nome valido
 		
 		for (int i=0; i<numvar; i++){
