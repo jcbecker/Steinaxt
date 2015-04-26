@@ -11,12 +11,14 @@ class Interpretador {
 	private String linha;
 	public int numvar;//vai conter o numero de variaveis alocadas
 	private Ulamanager ula;
+	private Varsmanager Varsm;
 	
 	public Interpretador(String l[]){
 		this.linhas = l;
 		vars = new Variavel [1000];
 		numvar = 0;
 		ula = new Ulamanager();
+		Varsm = new Varsmanager();
 	}
 	
 	public void Test (){
@@ -63,7 +65,7 @@ class Interpretador {
 										System.out.println ("Erro perto de "+ varofline[k]);
 										return ;
 									}
-									if (validname(varofline[k], i+1)){
+									if (Varsm.validname(varofline[k], i+1, vars)){
 										vars [numvar]= new Int (varofline[k],a);
 										numvar++;
 									}else{
@@ -72,7 +74,7 @@ class Interpretador {
 								}
 								else{//declara sem atribuição
 									varofline[k]=varofline[k].trim();
-									if (validname(varofline[k], i+1)){
+									if (Varsm.validname(varofline[k], i+1, vars)){
 										vars [numvar]= new Int (varofline[k],0);
 										numvar++;
 									}else{
@@ -98,7 +100,7 @@ class Interpretador {
 									System.out.println ("Erro perto de "+ varsline);
 									return ;
 								}
-								if (validname(varsline, i+1)){
+								if (Varsm.validname(varsline, i+1, vars)){
 									vars [numvar]= new Int (varsline,a);
 									numvar++;
 								}else{
@@ -108,7 +110,7 @@ class Interpretador {
 								
 							}else{//uma variavel sem atribuição
 								varsline=varsline.trim();
-								if (validname(varsline, i+1)){
+								if (Varsm.validname(varsline, i+1, vars)){
 									vars [numvar]= new Int (varsline,0);
 									numvar++;
 								}else{
@@ -153,7 +155,7 @@ class Interpretador {
 										System.out.println ("Erro perto de "+ varofline[k]);
 										return ;
 									}
-									if (validname(varofline[k], i+1)){
+									if (Varsm.validname(varofline[k], i+1, vars)){
 										vars [numvar]= new Real (varofline[k],a);
 										numvar++;
 									}else{
@@ -162,8 +164,8 @@ class Interpretador {
 								}
 								else{//declara sem atribuição
 									varofline[k]=varofline[k].trim();
-									if (validname(varofline[k], i+1)){
-										vars [numvar]= new Real (varofline[k],0.0);
+									if (Varsm.validname(varofline[k], i+1, vars)){
+										vars [Varsm.getNewVarPos(vars)]= new Real (varofline[k],0.0);
 										numvar++;
 									}else{
 										return;
@@ -188,7 +190,7 @@ class Interpretador {
 									System.out.println ("Erro perto de "+ varsline);
 									return ;
 								}
-								if (validname(varsline, i+1)){
+								if (Varsm.validname(varsline, i+1, vars)){
 									vars [numvar]= new Real (varsline,a);
 									numvar++;
 								}else{
@@ -198,7 +200,7 @@ class Interpretador {
 								
 							}else{//uma variavel sem atribuição
 								varsline=varsline.trim();
-								if (validname(varsline, i+1)){
+								if (Varsm.validname(varsline, i+1, vars)){
 									vars [numvar]= new Real (varsline,0.0);
 									numvar++;
 								}else{
@@ -338,74 +340,8 @@ class Interpretador {
 				
 			}
 		}
-		ula.printVars(vars);
+		Varsm.printVars(vars);
 	}
-/*	
-	public void printVars(){
-		
-		
-		for (int i = 0; i<numvar; i++){
-			if (vars [i] == null){
-				System.out.println ("não existe variavel na posição "+(i));
-			}
-			else if (vars [i] instanceof Int){
-				System.out.println ("Pos:"+i+" Tipo:int "+"Nome:"+(vars[i].getNome())+" Valor:"+ ((Int)vars[i]).getValor());
-				
-			}
-			
-			else if (vars [i] instanceof Real){
-				System.out.println ("Pos:"+i+" Tipo:real "+"Nome:"+(vars[i].getNome())+" Valor:"+ ((Real)vars[i]).getValor());
-				
-			}
-			
-			else if (vars [i] instanceof Text){
-				System.out.println ("Pos:"+i+" Tipo:text "+"Nome:"+(vars[i].getNome())+" Conteudo:"+ ((Text)vars[i]).getConteudo());
-				
-				
-			}
-			
-			else{
-				System.out.println ("Variavel da posição "+i +" não reconhecida");
-				
-			}
-			
-		}
-		
-	}
-*/	
-	public boolean validname(String name, int line){//verifica se string é um nome valido
-		
-		for (int i=0; i<numvar; i++){
-			if (name.equals(vars[i].getNome())){
-				System.out.println ("Erro na linha "+line+" já existe uma variavel com o nome "+name);
-				return false;
-			}
-			
-		}
-		if (name.contains (" ")|| name.contains ("!")|| name.contains ("@")
-		||  name.contains ("#")|| name.contains ("$")|| name.contains ("%")
-		||  name.contains ("&")|| name.contains ("*")|| name.contains ("(")
-		||  name.contains (")")|| name.contains ("-")|| name.contains ("+")
-		||  name.contains ("=")|| name.contains (";")){
-			System.out.println ("Erro na linha "+line+" variavel "+name+" obtem caracter especial");
-			return false;
-			
-		}
-		if ( name.charAt(0) >= '0' && name.charAt(0) <= '9'){
-			System.out.println ("Erro na linha "+line+" variavel "+name+" começa com numero");
-			return false;
-			
-		}
-		
-		if (name.equals("int") || name.equals("real") || name.equals("text") || 
-		name.equals("loop") || name.equals("show") || name.equals("if")){
-			System.out.println ("Erro na linha "+line+" variavel "+name+" com palavra reservada");
-			return false;
-		}
-		
-		
-		return true;
-	}
-	
+
 	
 }
