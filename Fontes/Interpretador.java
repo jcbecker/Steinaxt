@@ -8,7 +8,6 @@ Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
 class Interpretador {
 	private String linhas[];
 	public Variavel vars [];
-	private String linha;
 	public int numvar;//vai conter o numero de variaveis alocadas
 	private Ulamanager ula;
 	private Varsmanager Varsm;
@@ -31,10 +30,10 @@ class Interpretador {
 		
 	}
 	
-	public void interpreta(int i) {//parametro int para poder fazer recurção na interpretação, i = linha
-		for(; i < this.linhas.length; i++) {
+	public void interpreta(int i, int endinter) {//parametro int para poder fazer recurção na interpretação, i = linha
+		for(; i < endinter; i++) {
 			if(this.linhas[i] != null) {
-				linha = linhas[i].trim();//faz cópia e retira tabulação, espaços no inicio e final
+				String linha = new String (linhas[i].trim());//faz cópia e retira tabulação, espaços no inicio e final
 				
 				
 				if (linha.startsWith("int ")){//declaração de inteiro
@@ -329,14 +328,6 @@ class Interpretador {
 				}
 				
 //				System.out.println("Linha " + (i + 1) + ":" + linha);
-				
-				
-				
-				
-				
-				
-				
-				
 				
 			}
 		}

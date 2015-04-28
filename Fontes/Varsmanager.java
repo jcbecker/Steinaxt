@@ -66,7 +66,7 @@ class Varsmanager{
 		return true;
 	}
 	
-	public int getNewVarPos (Variavel[] v){//esse método retorna a primeira posição livre
+	public int getNewVarPos (Variavel[] v){//esse método retorna a primeira posição livre, -1 caso esteja sem espaço
 		int k=-1;
 		for (int i=0;;i++){
 			if (v[i]==null){
