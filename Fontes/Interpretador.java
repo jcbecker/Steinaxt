@@ -9,15 +9,15 @@ class Interpretador {
 	private String linhas[];
 	public Variavel vars [];
 	public int numvar;//vai conter o numero de variaveis alocadas
-	private Ulamanager ula;
-	private Varsmanager Varsm;
+	
+	
 	
 	public Interpretador(String l[]){
 		this.linhas = l;
 		vars = new Variavel [1000];
 		numvar = 0;
-		ula = new Ulamanager();
-		Varsm = new Varsmanager();
+		
+		
 	}
 	
 	public void Test (){
@@ -31,6 +31,10 @@ class Interpretador {
 	}
 	
 	public void interpreta(int i, int endinter) {//parametro int para poder fazer recurção na interpretação, i = linha
+		Varsmanager Varsm;
+		Ulamanager ula;
+		ula = new Ulamanager();
+		Varsm = new Varsmanager();
 		for(; i < endinter; i++) {
 			if(this.linhas[i] != null) {
 				String linha = new String (linhas[i].trim());//faz cópia e retira tabulação, espaços no inicio e final
