@@ -8,33 +8,30 @@ Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
 class Interpretador {
 	private String linhas[];
 	public Variavel vars [];
-	public int numvar;//vai conter o numero de variaveis alocadas
 	
 	
 	
 	public Interpretador(String l[]){
 		this.linhas = l;
 		vars = new Variavel [1000];
-		numvar = 0;
 		
 		
 	}
 	
 	public void Test (){
-		vars [numvar]= new Int ("number",7);
-		numvar++;
-		vars [numvar]= new Real ("pi",3.1415);
-		numvar++;
-		vars [numvar]= new Text ("texto","James_hetfield");
-		numvar++;
+		Varsmanager varmanager;
+		varmanager = new Varsmanager();
+		vars [(varmanager.getNewVarPos(vars))]= new Int ("number",7);
+		vars [(varmanager.getNewVarPos(vars))]= new Real ("pi",3.1415);
+		vars [(varmanager.getNewVarPos(vars))]= new Text ("texto","James_hetfield");
 		
 	}
 	
 	public void interpreta(int i, int endinter) {//parametro int para poder fazer recurção na interpretação, i = linha
-		Varsmanager Varsm;
+		Varsmanager varmanager;
 		Ulamanager ula;
 		ula = new Ulamanager();
-		Varsm = new Varsmanager();
+		varmanager = new Varsmanager();
 		for(; i < endinter; i++) {
 			if(this.linhas[i] != null) {
 				String linha = new String (linhas[i].trim());//faz cópia e retira tabulação, espaços no inicio e final
@@ -68,18 +65,18 @@ class Interpretador {
 										System.out.println ("Erro perto de "+ varofline[k]);
 										return ;
 									}
-									if (Varsm.validname(varofline[k], i+1, vars)){
-										vars [numvar]= new Int (varofline[k],a);
-										numvar++;
+									if (varmanager.validname(varofline[k], i+1, vars)){
+										vars [varmanager.getNewVarPos(vars)]= new Int (varofline[k],a);
+										//falta add o error de varmanager.getNewVarPos(vars) retornar -1
 									}else{
 										return;
 									}
 								}
 								else{//declara sem atribuição
 									varofline[k]=varofline[k].trim();
-									if (Varsm.validname(varofline[k], i+1, vars)){
-										vars [numvar]= new Int (varofline[k],0);
-										numvar++;
+									if (varmanager.validname(varofline[k], i+1, vars)){
+										vars [varmanager.getNewVarPos(vars)]= new Int (varofline[k],0);
+										//falta add error de varmanager.getNewVarPos(vars) retornar -1
 									}else{
 										return;
 									}
@@ -103,9 +100,9 @@ class Interpretador {
 									System.out.println ("Erro perto de "+ varsline);
 									return ;
 								}
-								if (Varsm.validname(varsline, i+1, vars)){
-									vars [numvar]= new Int (varsline,a);
-									numvar++;
+								if (varmanager.validname(varsline, i+1, vars)){
+									vars [varmanager.getNewVarPos(vars)]= new Int (varsline,a);
+									//falta add o error de varmanager.getNewVarPos(vars) retornar -1 
 								}else{
 									return;
 								}
@@ -113,9 +110,9 @@ class Interpretador {
 								
 							}else{//uma variavel sem atribuição
 								varsline=varsline.trim();
-								if (Varsm.validname(varsline, i+1, vars)){
-									vars [numvar]= new Int (varsline,0);
-									numvar++;
+								if (varmanager.validname(varsline, i+1, vars)){
+									vars [varmanager.getNewVarPos(vars)]= new Int (varsline,0);
+									//falta add o error de varmanager.getNewVarPos(vars) retornar -1
 								}else{
 									return;
 								}
@@ -158,18 +155,18 @@ class Interpretador {
 										System.out.println ("Erro perto de "+ varofline[k]);
 										return ;
 									}
-									if (Varsm.validname(varofline[k], i+1, vars)){
-										vars [numvar]= new Real (varofline[k],a);
-										numvar++;
+									if (varmanager.validname(varofline[k], i+1, vars)){
+										vars [varmanager.getNewVarPos(vars)]= new Real (varofline[k],a);
+										//falta add o error de varmanager.getNewVarPos(vars) retornar -1
 									}else{
 										return;
 									}
 								}
 								else{//declara sem atribuição
 									varofline[k]=varofline[k].trim();
-									if (Varsm.validname(varofline[k], i+1, vars)){
-										vars [Varsm.getNewVarPos(vars)]= new Real (varofline[k],0.0);
-										numvar++;
+									if (varmanager.validname(varofline[k], i+1, vars)){
+										vars [varmanager.getNewVarPos(vars)]= new Real (varofline[k],0.0);
+										//falta add o error de varmanager.getNewVarPos(vars) retornar -1
 									}else{
 										return;
 									}
@@ -193,9 +190,9 @@ class Interpretador {
 									System.out.println ("Erro perto de "+ varsline);
 									return ;
 								}
-								if (Varsm.validname(varsline, i+1, vars)){
-									vars [numvar]= new Real (varsline,a);
-									numvar++;
+								if (varmanager.validname(varsline, i+1, vars)){
+									vars [varmanager.getNewVarPos(vars)]= new Real (varsline,a);
+									//falta add o error de varmanager.getNewVarPos(vars) retornar -1
 								}else{
 									return;
 								}
@@ -203,9 +200,9 @@ class Interpretador {
 								
 							}else{//uma variavel sem atribuição
 								varsline=varsline.trim();
-								if (Varsm.validname(varsline, i+1, vars)){
-									vars [numvar]= new Real (varsline,0.0);
-									numvar++;
+								if (varmanager.validname(varsline, i+1, vars)){
+									vars [varmanager.getNewVarPos(vars)]= new Real (varsline,0.0);
+									//falta add o error de varmanager.getNewVarPos(vars) retornar -1
 								}else{
 									return;
 								}
@@ -255,13 +252,10 @@ class Interpretador {
 						String destino = new String (atr[0].trim());
 						String ope = new String (atr[1].trim());
 						boolean flagachou=false;
-						for (int j=0; j<numvar;j++){
-							if (destino.equals(vars[j].getNome())){
-								flagachou=true;
-								posdestino = j;
-							}
-						}
 						
+						
+						posdestino = varmanager.getVarPos(destino, vars);
+						if (posdestino != -1) flagachou = true;
 						if (flagachou){
 							System.out.println ("Debug: Destino: "+destino+" Operação: "+ope);
 							flagachou=false;
@@ -293,13 +287,6 @@ class Interpretador {
 								
 								
 								
-								
-								for (int j=0; j<numvar;j++){
-									if (ope.equals(vars[j].getNome())){
-										flagachou=true;
-									}
-									
-								}
 								
 								
 								
@@ -335,7 +322,7 @@ class Interpretador {
 				
 			}
 		}
-		Varsm.printVars(vars);
+		varmanager.printVars(vars);
 	}
 
 	

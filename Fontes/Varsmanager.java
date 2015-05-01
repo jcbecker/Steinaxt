@@ -78,4 +78,17 @@ class Varsmanager{
 		return k;
 	}
 	
+	public int getVarPos (String pname, Variavel[] v){
+		int pos = -1;
+		pname = pname.trim();
+		for (int i=0;v[i]!=null;i++){
+			if (pname.equals(v[i].getNome())){
+				pos=i;
+				break;
+			}
+			
+		}
+		if (pos==-1) System.out.println ("Erro: Váriavel "+ pname+ " não encontrada");
+		return pos;
+	}
 }
