@@ -7,21 +7,20 @@ class Ulamanager{
 			try{
 				a= Integer.parseInt(decod);
 			}catch(NumberFormatException e){
-				System.out.println ("Erro era esperado uma constante do tipo inteiro perto de "+decod);
+				System.out.println ("Erro: era esperado uma constante do tipo inteiro perto de "+decod);
 				Interpretador.error=true;
 			}
-			
 		}else{//esperado variavel
 			Varsmanager V = new Varsmanager();
 			int pos =V.getVarPos(decod, vars);
 			if (pos==-1){//ERRO
-				System.out.println ("Erro era esperado uma variavel do tipo int com o nome "+decod);
+				System.out.println ("Erro: era esperado uma variavel do tipo int com o nome "+decod);
 				Interpretador.error=true;
 			}else{
 				if (vars [pos] instanceof Int){
 					a = ((Int)vars[pos]).getValor();
 				}else{
-					System.out.println ("Erro era esperado uma variavel do tipo int com o nome "+decod);
+					System.out.println ("Erro: era esperado uma variavel do tipo int com o nome "+decod);
 					Interpretador.error=true;
 				}
 			}
@@ -38,14 +37,28 @@ class Ulamanager{
 		decod = decod.trim();
 		double a=0.0;
 		if ( (decod.charAt(0) >= '0' && decod.charAt(0) <= '9') || decod.charAt(0) == '-'){//esperado constante
-			
-			
-		}else{//esperando variavel
-			
-			
+			try{
+				a= Double.parseDouble(decod);//Double.parseDouble
+			}catch(NumberFormatException e){
+				System.out.println ("Erro: era esperado uma constante do tipo real perto de "+decod);
+				Interpretador.error=true;
+			}
+		}else{//esperado variavel
+			Varsmanager V = new Varsmanager();
+			int pos =V.getVarPos(decod, vars);
+			if (pos==-1){//ERRO
+				System.out.println ("Erro: era esperado uma variavel do tipo real com o nome "+decod);
+				Interpretador.error=true;
+			}else{
+				if (vars [pos] instanceof Real){
+					a = ((Real)vars[pos]).getValor();
+				}else{
+					System.out.println ("Erro: era esperado uma variavel do tipo real com o nome "+decod);
+					Interpretador.error=true;
+				}
+			}
 			
 		}
-		
 		return a;
 	}
 	

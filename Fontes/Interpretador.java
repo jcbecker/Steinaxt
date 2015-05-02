@@ -145,13 +145,10 @@ class Interpretador {
 										return ;
 									}
 									varofline[k]=atributo[0].trim();
-									double a= 0.0;
-									try{
-										a= Double.parseDouble(atributo[1].trim());//Double.parseDouble(text);
-									}catch (NumberFormatException e) {
-										System.out.println("Erro na linha "+(i+1)+" declaração não reconhecida para catch numb");
-										System.out.println ("Erro perto de "+ varofline[k]);
-										return ;
+									double a= ula.getRealValue(atributo[1],vars);
+									if (Interpretador.error){
+										System.out.println ("Erro: na linha "+(i+1));
+										return;
 									}
 									if (varmanager.validname(varofline[k], i+1, vars)){
 										vars [varmanager.getNewVarPos(vars)]= new Real (varofline[k],a);
