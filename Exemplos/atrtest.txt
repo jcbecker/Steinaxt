@@ -1,11 +1,16 @@
 int i=  -500  , j, k=9, m= 7777
 real r, q, x =3.3, y, pi=-3.141592
+int mil = 1000
+int mil2 = mil
+real pato = -15.0
+real pato2 = pato
 i=k
 i = k + 2
 j = i
 j = j + 1
 m = 3
 r = -5.8
-int negativo, teste=   m   	
+int negativo
+int teste=   m   	
 negativo = -1
 real x1=pi, x2=-1.0, y1=x1, y2=x2
