@@ -29,10 +29,6 @@ class Ulamanager{
 		return a;
 	}
 	
-	
-	
-	
-	
 	public double getRealValue (String decod,Variavel [] vars){//Pega o valor real e retorna ele seja variavel ou constante
 		decod = decod.trim();
 		double a=0.0;
@@ -62,7 +58,82 @@ class Ulamanager{
 		return a;
 	}
 	
+	public int getIntOpe (String operacao, Variavel [] vars){
+		operacao=operacao.trim();
+		if (operacao.startsWith("add ")||operacao.startsWith("sub ")
+		||  operacao.startsWith("mul ")||operacao.startsWith("div ")
+		||  operacao.startsWith("mod ")){
+			String operandos = new String (operacao.substring (4));
+			operandos=operandos.trim();
+//			System.out.println ("Debug: "+operandos);
+			if (!(operandos.contains ("&"))){
+				System.out.println ("Erro: era esperado dois argumentos separados por & perto de "+operandos);
+				Interpretador.error=true;
+				return 1;
+			}
+			String[] atr = operandos.split("&");
+			if (atr.length != 2){
+				System.out.println ("Erro: era esperado dois argumentos separados por 1 & perto de "+operandos);
+				Interpretador.error=true;
+				return 1;
+			}
+			int operador1, operador2;
+			operador1 = getIntValue(atr[0],vars);
+			operador2 = getIntValue(atr[1],vars);
+			if (Interpretador.error) return 1;
+			
+			if (operacao.startsWith("add ")) return operador1 + operador2;
+			else if (operacao.startsWith("sub ")) return operador1 - operador2;
+			else if (operacao.startsWith("mul ")) return operador1 * operador2;
+			else if (operacao.startsWith("div ")) return operador1 / operador2;
+			else if (operacao.startsWith("mod ")) return operador1 % operador2;
+			
+		}else{
+			int argumento= getIntValue(operacao, vars);
+			if (Interpretador.error) System.out.println ("Erro: era esperado uma atribuição de argumento unico do tipo int perto de "+operacao);
+			return argumento;
+		}
+		return 1;
+	}
 	
 	
+	
+	public double getRealOpe (String operacao, Variavel [] vars){
+		operacao=operacao.trim();
+		if (operacao.startsWith("add ")||operacao.startsWith("sub ")
+		||  operacao.startsWith("mul ")||operacao.startsWith("div ")
+		||  operacao.startsWith("mod ")){
+			String operandos = new String (operacao.substring (4));
+			operandos=operandos.trim();
+//			System.out.println ("Debug: "+operandos);
+			if (!(operandos.contains ("&"))){
+				System.out.println ("Erro: era esperado dois argumentos separados por & perto de "+operandos);
+				Interpretador.error=true;
+				return 1.0;
+			}
+			String[] atr = operandos.split("&");
+			if (atr.length != 2){
+				System.out.println ("Erro: era esperado dois argumentos separados por 1 & perto de "+operandos);
+				Interpretador.error=true;
+				return 1.0;
+			}
+			double operador1, operador2;
+			operador1 = getRealValue(atr[0],vars);
+			operador2 = getRealValue(atr[1],vars);
+			if (Interpretador.error) return 1.0;
+			
+			if (operacao.startsWith("add ")) return operador1 + operador2;
+			else if (operacao.startsWith("sub ")) return operador1 - operador2;
+			else if (operacao.startsWith("mul ")) return operador1 * operador2;
+			else if (operacao.startsWith("div ")) return operador1 / operador2;
+			else if (operacao.startsWith("mod ")) return operador1 % operador2;
+			
+		}else{
+			double argumento= getRealValue(operacao, vars);
+			if (Interpretador.error) System.out.println ("Erro: era esperado uma atribuição de argumento unico do tipo real perto de "+operacao);
+			return argumento;
+		}
+		return 1.0;
+	}
 	
 }

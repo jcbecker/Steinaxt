@@ -58,7 +58,7 @@ class Interpretador {
 										return ;
 									}
 									varofline[k]=atributo[0].trim();
-									int a= ula.getIntValue(atributo[1], vars);
+									int a= ula.getIntOpe(atributo[1], vars);
 									if (Interpretador.error){
 										System.out.println ("Erro na linha "+(i+1));
 										return;
@@ -90,7 +90,7 @@ class Interpretador {
 									return ;
 								}
 								varsline=atributo[0].trim();
-								int a= ula.getIntValue(atributo[1],vars);
+								int a= ula.getIntOpe(atributo[1],vars);
 								if(Interpretador.error){
 									System.out.println("Erro: na linha "+(i+1));
 									return;
@@ -142,7 +142,7 @@ class Interpretador {
 										return ;
 									}
 									varofline[k]=atributo[0].trim();
-									double a= ula.getRealValue(atributo[1],vars);
+									double a= ula.getRealOpe(atributo[1],vars);
 									if (Interpretador.error){
 										System.out.println ("Erro: na linha "+(i+1));
 										return;
@@ -174,7 +174,7 @@ class Interpretador {
 									return ;
 								}
 								varsline=atributo[0].trim();
-								double a= ula.getRealValue(atributo[1], vars);
+								double a= ula.getRealOpe(atributo[1], vars);
 								if(Interpretador.error){
 									System.out.println ("Erro: na linha "+(1+1));
 									return;
@@ -231,76 +231,36 @@ class Interpretador {
 				}
 				
 				else if (linha.contains ("=")){
-					int posdestino;
-					
 					System.out.println ("Debug: Atribuição reconhecida na linha "+(i+1));
+					String[] atribuicao = linha.split("=");
 					
-					String[] atr = linha.split("=");
+					if (atribuicao.length != 2){
+						Interpretador.error=true;
+						System.out.println("Erro: era esperedo uma atribuição na linha "+(i+1)+" mas o comando é desconhecido");
+						return;
+					}
+					String destino = new String (atribuicao[0].trim());
+					String origem = new String (atribuicao[1].trim());
 					
-					if (atr.length == 2){
-						String destino = new String (atr[0].trim());
-						String ope = new String (atr[1].trim());
-						boolean flagachou=false;
-						
-						
-						posdestino = varmanager.getVarPos(destino, vars);
-						if (posdestino != -1) flagachou = true;
-						if (flagachou){
-							System.out.println ("Debug: Destino: "+destino+" Operação: "+ope);
-							flagachou=false;
-							if (ope.contains(" + ")){//faz soma e atribui
-								
-							}else if (ope.contains(" - ")){//faz subtração e atribui
-								
-							}else if (ope.contains(" * ")){//faz multiplicação e atribui
-								
-							}else if (ope.contains(" / ")){//divide e atribui
-								
-							}else if (ope.contains(" % ")){//faz mod e atribui
-								
-							}else{//apenas atribui
-								if (ope.charAt(0) >= '0' && ope.charAt(0) <= '9' || ope.charAt(0) == '-' ){
-									System.out.println ("Debug: é esperado constante");
-									
-								}else{
-									System.out.println ("Debug: é esperado variavel");
-									
-									
-									
-									
-								}
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-							}
-							
-							
-							
-							
-							
-						}else{//não chou variavel de destino
-							System.out.println("Erro era esperado uma atribuição na linha "+(i+1));
-							System.out.println("Mas não foi encontrado uma variavel com o nome de "+destino);
+					int posdestino = varmanager.getVarPos(destino, vars);
+					if (posdestino == -1){
+						Interpretador.error=true;
+						System.out.println("Erro: na linha "+(i+1)+" não foi encontrado variavel com o nome "+destino);
+						return;
+					}
+					if (vars[posdestino] instanceof Int){
+						((Int)vars[posdestino]).setValor(ula.getIntOpe(origem,vars));
+						if (Interpretador.error){
+							System.out.println ("Erro: o erro foi na linha "+(i+1)+" era esperado atribuição para int");
 							return;
-							
-							
 						}
 						
-						
-						
-					}else{//dividio as strings em um numero diferente de dois
-						System.out.println("Comando da linha "+(i+1)+" não reconhecido");
-						return;
-						
+					}else if (vars[posdestino] instanceof Real){
+						((Real)vars[posdestino]).setValor(ula.getRealOpe(origem,vars));
+						if (Interpretador.error){
+							System.out.println ("Erro: o erro foi na linha "+(i+1)+" era esperado atribuição para real");
+							return;
+						}
 						
 					}
 					

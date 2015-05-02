@@ -83,19 +83,9 @@ class Varsmanager{
 			}
 			
 		}
-		if (pos==-1) System.out.println ("Erro: Váriavel "+ pname+ " não encontrada");
 		return pos;
 	}
 	
-	public String getVarType (Variavel v){
-		String status;
-		if (v==null) status = new String ("null");
-		else if (v instanceof Int) status = new String ("int");
-		else if (v instanceof Real)status = new String ("real");
-		else if (v instanceof Text) status = new String ("text");
-		else status = new String ("else");
-		return status;
-		
-	}
+	
 	
 }
