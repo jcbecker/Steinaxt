@@ -11,20 +11,15 @@ class Varsmanager{
 			}
 			else if (vars [i] instanceof Int){
 				System.out.println ("Pos:"+i+" Tipo:int "+"Nome:"+(vars[i].getNome())+" Valor:"+ ((Int)vars[i]).getValor());
-				
 			}
 			else if (vars [i] instanceof Real){
 				System.out.println ("Pos:"+i+" Tipo:real "+"Nome:"+(vars[i].getNome())+" Valor:"+ ((Real)vars[i]).getValor());
-				
 			}
 			else if (vars [i] instanceof Text){
 				System.out.println ("Pos:"+i+" Tipo:text "+"Nome:"+(vars[i].getNome())+" Conteudo:"+ ((Text)vars[i]).getConteudo());
-				
-				
 			}
 			else{
 				System.out.println ("Variavel da posição "+i +" não reconhecida");
-				
 			}
 			
 		}
@@ -78,7 +73,7 @@ class Varsmanager{
 		return k;
 	}
 	
-	public int getVarPos (String pname, Variavel[] v){
+	public int getVarPos (String pname, Variavel[] v){//retorna a posição da variavel com o nome pname
 		int pos = -1;
 		pname = pname.trim();
 		for (int i=0;v[i]!=null;i++){
@@ -91,4 +86,16 @@ class Varsmanager{
 		if (pos==-1) System.out.println ("Erro: Váriavel "+ pname+ " não encontrada");
 		return pos;
 	}
+	
+	public String getVarType (Variavel v){
+		String status;
+		if (v==null) status = new String ("null");
+		else if (v instanceof Int) status = new String ("int");
+		else if (v instanceof Real)status = new String ("real");
+		else if (v instanceof Text) status = new String ("text");
+		else status = new String ("else");
+		return status;
+		
+	}
+	
 }

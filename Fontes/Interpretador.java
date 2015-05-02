@@ -8,12 +8,13 @@ Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
 class Interpretador {
 	private String linhas[];
 	public Variavel vars [];
-	
+	public static boolean error;
 	
 	
 	public Interpretador(String l[]){
 		this.linhas = l;
 		vars = new Variavel [1000];
+		Interpretador.error=false;
 		
 		
 	}
@@ -57,13 +58,10 @@ class Interpretador {
 										return ;
 									}
 									varofline[k]=atributo[0].trim();
-									int a= 0;
-									try{
-										a= Integer.parseInt(atributo[1].trim());
-									}catch (NumberFormatException e) {
-										System.out.println("Erro na linha "+(i+1)+" declaração não reconhecida para catch numb");
-										System.out.println ("Erro perto de "+ varofline[k]);
-										return ;
+									int a= ula.getIntValue(atributo[1], vars);
+									if (Interpretador.error){
+										System.out.println ("Erro na linha "+(i+1));
+										return;
 									}
 									if (varmanager.validname(varofline[k], i+1, vars)){
 										vars [varmanager.getNewVarPos(vars)]= new Int (varofline[k],a);

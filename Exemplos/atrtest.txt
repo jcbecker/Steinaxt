@@ -1,4 +1,4 @@
-int i, j, k=9, m
+int i=  -500  , j, k=9, m= i
 real r, q, x =3.3, y, pi=-3.141592
 i=k
 i = k + 2
