@@ -20,12 +20,12 @@ real pato3
 pato3 = add pato & pato2
 int inc = 1
 inc = add inc & 1
-show *valor,inc,*teste
+show *valor ,inc, 	* 	 teste
 inc = add inc & 1
-show *valor,inc,*teste
+show *valor ,inc,* teste
 inc = add inc & 1
-show *valor,inc,*teste
+show *valor ,inc,* teste
 inc = add inc & 1
-show *valor,inc,*teste
+show *valor ,inc, 	* teste
 inc = add inc & 1
-show *valor,inc,*teste
+show *valor ,inc, 	* 	 teste

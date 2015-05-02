@@ -15,7 +15,10 @@ class Entradasaida{
 		for(int n=0; n < args.length;n++){
 			String a =args[n].trim();
 			if (a.startsWith("*")){//então concatena texto
-				saida=saida.concat(a);
+				int j=args[n].indexOf("*");
+				j++;
+				String b= args[n].substring(j);
+				saida=saida.concat(b);
 				
 			}else{//então a = nome da variavel
 				int p=varmanager.getVarPos(a, vars);
