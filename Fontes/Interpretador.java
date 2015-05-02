@@ -31,8 +31,10 @@ class Interpretador {
 	public void interpreta(int i, int endinter) {//parametro int para poder fazer recurção na interpretação, i = linha
 		Varsmanager varmanager;
 		Ulamanager ula;
+		Entradasaida IO;
 		ula = new Ulamanager();
 		varmanager = new Varsmanager();
+		IO = new Entradasaida();
 		for(; i < endinter; i++) {
 			if(this.linhas[i] != null) {
 				String linha = new String (linhas[i].trim());//faz cópia e retira tabulação, espaços no inicio e final
@@ -227,6 +229,13 @@ class Interpretador {
 				
 				else if (linha.startsWith ("show")){
 					System.out.println("Debug: Comando de saida reconhecido na linha "+ (i+1));
+					String argumento = new String(linha.substring(4));//String varsline = new String (linha.substring (4));
+					argumento=IO.getOutput(argumento, vars);
+					if (Interpretador.error){
+						System.out.println("Erro: na linha "+(i+1)+", era esperado um comando de saida");
+						return;
+					}
+					System.out.println (argumento);
 					
 				}
 				
@@ -261,9 +270,10 @@ class Interpretador {
 							System.out.println ("Erro: o erro foi na linha "+(i+1)+" era esperado atribuição para real");
 							return;
 						}
-						
 					}
-					
+				}
+				else if (linha.equals("]")){
+					System.out.println ("Debug: fecha escopo reconhecido na linha "+(i+1));
 					
 				}
 				
