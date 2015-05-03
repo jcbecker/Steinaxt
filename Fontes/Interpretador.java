@@ -43,7 +43,7 @@ class Interpretador {
 				if (linha.startsWith("int ")){//declaração de inteiro
 					
 					
-					System.out.println ("Debug: Declaração de inteiro na linha "+ (i+1));
+//					System.out.println ("Debug: Declaração de inteiro na linha "+ (i+1));
 					String varsline = new String (linha.substring (4));
 					if (!(varsline.isEmpty())){
 						if (varsline.contains(",")){//declara mais que um inteiro
@@ -126,7 +126,7 @@ class Interpretador {
 					
 				}
 				else if (linha.startsWith ("real ")){
-					System.out.println ("Debug: Declaração de real na linha"+ (i+1));
+//					System.out.println ("Debug: Declaração de real na linha"+ (i+1));
 					
 					String varsline = new String (linha.substring (5));
 					if (!(varsline.isEmpty())){
@@ -212,13 +212,13 @@ class Interpretador {
 				}
 				
 				else if (linha.startsWith ("text ")){
-					System.out.println ("Debug: Declaração de string na linha"+ (i+1));
+//					System.out.println ("Debug: Declaração de string na linha"+ (i+1));
 					
 				}
 				
 				
 				else if (linha.startsWith ("loop ")){
-					System.out.println ("Debug: Inicio de laço na linha "+ (i+1));
+//					System.out.println ("Debug: Inicio de laço na linha "+ (i+1));
 					
 					
 					if (!(linha.endsWith("["))){
@@ -229,7 +229,7 @@ class Interpretador {
 					
 					int endindex = linha.lastIndexOf("[");
 					String condicao = linha.substring(5, endindex);
-					System.out.println ("Debug: condição enviada "+condicao);
+//					System.out.println ("Debug: condição enviada "+condicao);
 					boolean resultado = ula.getCondicao(condicao, vars);
 					
 					if (Interpretador.error){
@@ -238,8 +238,8 @@ class Interpretador {
 					}
 					int escopo_ini= i+1, escopo_fim=i+1, flagjump=1;
 					String parselinha;
-					if (resultado) System.out.println("Debug: Condição da linha "+(i+1)+" é verdadeira");
-					else System.out.println("Debug: Condição da linha "+(i+1)+" é falsa");
+//					if (resultado) System.out.println("Debug: Condição da linha "+(i+1)+" é verdadeira");
+//					else System.out.println("Debug: Condição da linha "+(i+1)+" é falsa");
 					
 					
 					while (escopo_fim<endinter){
@@ -256,7 +256,7 @@ class Interpretador {
 						}
 						escopo_fim ++;
 					}
-					System.out.println ("Debug: o escopo começa na linha "+(escopo_ini+1)+" e termina na "+(escopo_fim+1));
+//					System.out.println ("Debug: o escopo começa na linha "+(escopo_ini+1)+" e termina na "+(escopo_fim+1));
 					
 					
 					
@@ -282,7 +282,7 @@ class Interpretador {
 				}
 				
 				else if (linha.startsWith ("if ")){
-					System.out.println ("Debug: If reconhecido na linha "+ (i+1));
+//					System.out.println ("Debug: If reconhecido na linha "+ (i+1));
 					if (!(linha.endsWith("["))){
 						Interpretador.error=true;
 						System.out.println("Erro: era esperado um [ no fim da linha "+(i+1));
@@ -290,16 +290,16 @@ class Interpretador {
 					}
 					int endindex = linha.lastIndexOf("[");
 					String condicao = linha.substring(3, endindex);
-					System.out.println ("Debug: condição enviada "+condicao);
+//					System.out.println ("Debug: condição enviada "+condicao);
 					boolean resultado = ula.getCondicao(condicao, vars);
 					if (Interpretador.error){
 						System.out.println("Erro: condição invalida na linha "+(i+1));
 						return;
 					}
 					if (resultado){
-						System.out.println("Debug: a condição da linha "+(i+1)+" é verdadeira");
+//						System.out.println("Debug: a condição da linha "+(i+1)+" é verdadeira");
 					}else{
-						System.out.println("Debug: a condição da linha "+(i+1)+" é falsa");
+//						System.out.println("Debug: a condição da linha "+(i+1)+" é falsa");
 						int flagjump=1, jump=i+1;
 						String parselinha;
 						
@@ -330,7 +330,7 @@ class Interpretador {
 				}
 				
 				else if (linha.startsWith ("show")){
-					System.out.println("Debug: Comando de saida reconhecido na linha "+ (i+1));
+//					System.out.println("Debug: Comando de saida reconhecido na linha "+ (i+1));
 					String argumento = new String(linha.substring(4));//String varsline = new String (linha.substring (4));
 					argumento=IO.getOutput(argumento, vars);
 					if (Interpretador.error){
@@ -342,7 +342,7 @@ class Interpretador {
 				}
 				
 				else if (linha.contains ("=")){
-					System.out.println ("Debug: Atribuição reconhecida na linha "+(i+1));
+//					System.out.println ("Debug: Atribuição reconhecida na linha "+(i+1));
 					String[] atribuicao = linha.split("=");
 					
 					if (atribuicao.length != 2){
@@ -375,7 +375,7 @@ class Interpretador {
 					}
 				}
 				else if (linha.equals("]")){
-					System.out.println ("Debug: fecha escopo reconhecido na linha "+(i+1));
+//					System.out.println ("Debug: fecha escopo reconhecido na linha "+(i+1));
 					
 				}
 				
@@ -383,7 +383,7 @@ class Interpretador {
 				
 			}
 		}
-		varmanager.printVars(vars);
+//		varmanager.printVars(vars);
 	}
 
 	
