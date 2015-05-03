@@ -49,5 +49,15 @@ class Entradasaida{
 		return saida;
 	}
 	
+	public int getIntInput(){
+		int entrada=0;
+		
+		return entrada;
+	}
+	public double getRealInput(){
+		double entrada=0.0;
+		
+		return entrada;
+	}
 	
 }
