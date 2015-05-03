@@ -220,6 +220,65 @@ class Interpretador {
 				else if (linha.startsWith ("loop ")){
 					System.out.println ("Debug: Inicio de laço na linha "+ (i+1));
 					
+					
+					if (!(linha.endsWith("["))){
+						Interpretador.error=true;
+						System.out.println("Erro: era esperado um [ no fim da linha "+(i+1));
+						return;
+					}
+					
+					int endindex = linha.lastIndexOf("[");
+					String condicao = linha.substring(5, endindex);
+					System.out.println ("Debug: condição enviada "+condicao);
+					boolean resultado = ula.getCondicao(condicao, vars);
+					
+					if (Interpretador.error){
+						System.out.println("Erro: condição invalida na linha "+(i+1));
+						return;
+					}
+					int escopo_ini= i+1, escopo_fim=i+1, flagjump=1;
+					String parselinha;
+					if (resultado) System.out.println("Debug: Condição da linha "+(i+1)+" é verdadeira");
+					else System.out.println("Debug: Condição da linha "+(i+1)+" é falsa");
+					
+					
+					while (escopo_fim<endinter){
+						if(this.linhas[escopo_fim] != null) {
+							parselinha = linhas[escopo_fim].trim();
+							if (parselinha.endsWith("["))flagjump++; 
+							if (parselinha.endsWith("]"))flagjump--;
+							if (flagjump==0)break;
+							
+						}else{
+							Interpretador.error=true;
+							System.out.println ("Erro: não foi encontrado um fim de escopo para o if da linha "+(i+1));
+							return;
+						}
+						escopo_fim ++;
+					}
+					System.out.println ("Debug: o escopo começa na linha "+(escopo_ini+1)+" e termina na "+(escopo_fim+1));
+					
+					
+					
+					
+					if (flagjump!=0){
+						Interpretador.error=true;
+						System.out.println ("Erro: não foi encontrado um fim de escopo para o if da linha "+(i+1));
+						return;
+					}
+					while(resultado){
+						interpreta(escopo_ini,escopo_fim );
+						if (Interpretador.error) return;
+						
+						resultado = ula.getCondicao(condicao, vars);
+						if (Interpretador.error){
+							System.out.println("Erro: condição invalida na linha "+(i+1));
+							return;
+						}
+					}
+					i=escopo_fim;
+					
+					
 				}
 				
 				else if (linha.startsWith ("if ")){
@@ -230,7 +289,6 @@ class Interpretador {
 						return;
 					}
 					int endindex = linha.lastIndexOf("[");
-//					endindex--;
 					String condicao = linha.substring(3, endindex);
 					System.out.println ("Debug: condição enviada "+condicao);
 					boolean resultado = ula.getCondicao(condicao, vars);
@@ -247,7 +305,7 @@ class Interpretador {
 						
 						
 						while (jump<endinter){
-							if(this.linhas[i] != null) {
+							if(this.linhas[jump] != null) {
 								parselinha = linhas[jump].trim();
 								if (parselinha.endsWith("["))flagjump++; 
 								if (parselinha.endsWith("]"))flagjump--;
