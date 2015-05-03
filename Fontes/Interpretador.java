@@ -242,6 +242,31 @@ class Interpretador {
 						System.out.println("Debug: a condição da linha "+(i+1)+" é verdadeira");
 					}else{
 						System.out.println("Debug: a condição da linha "+(i+1)+" é falsa");
+						int flagjump=1, jump=i+1;
+						String parselinha;
+						
+						
+						while (jump<endinter){
+							if(this.linhas[i] != null) {
+								parselinha = linhas[jump].trim();
+								if (parselinha.endsWith("["))flagjump++; 
+								if (parselinha.endsWith("]"))flagjump--;
+								if (flagjump==0)break;
+								
+							}else{
+								Interpretador.error=true;
+								System.out.println ("Erro: não foi encontrado um fim de escopo para o if da linha "+(i+1));
+								return;
+							}
+							jump ++;
+						}
+						if (flagjump!=0){
+							Interpretador.error=true;
+							System.out.println ("Erro: não foi encontrado um fim de escopo para o if da linha "+(i+1));
+							return;
+						}
+						i=jump;
+						
 					}
 					
 				}

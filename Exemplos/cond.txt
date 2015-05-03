@@ -1,7 +1,7 @@
 int i, j
 real x, y
 i=3
-j=4
+j=3
 x=3.0
 y=6.5
 if i== j  [
@@ -9,6 +9,12 @@ if i== j  [
 ]
 if i!=j[
 	show i, * eh diferente que ,j
+	if j==i[
+		show *algo deu errado
+	]
+	if j!=i[
+		show *OK
+	]
 ]
 if i>=j[
 	show i, * eh maior ou igual que ,j
