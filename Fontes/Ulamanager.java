@@ -7,20 +7,20 @@ class Ulamanager{
 			try{
 				a= Integer.parseInt(decod);
 			}catch(NumberFormatException e){
-				System.out.println ("Erro: era esperado uma constante do tipo inteiro perto de "+decod);
+//				System.out.println ("Erro: era esperado uma constante do tipo inteiro perto de "+decod);
 				Interpretador.error=true;
 			}
 		}else{//esperado variavel
 			Varsmanager V = new Varsmanager();
 			int pos =V.getVarPos(decod, vars);
 			if (pos==-1){//ERRO
-				System.out.println ("Erro: era esperado uma variavel do tipo int com o nome "+decod);
+//				System.out.println ("Erro: era esperado uma variavel do tipo int com o nome "+decod);
 				Interpretador.error=true;
 			}else{
 				if (vars [pos] instanceof Int){
 					a = ((Int)vars[pos]).getValor();
 				}else{
-					System.out.println ("Erro: era esperado uma variavel do tipo int com o nome "+decod);
+//					System.out.println ("Erro: era esperado uma variavel do tipo int com o nome "+decod);
 					Interpretador.error=true;
 				}
 			}
@@ -36,20 +36,20 @@ class Ulamanager{
 			try{
 				a= Double.parseDouble(decod);//Double.parseDouble
 			}catch(NumberFormatException e){
-				System.out.println ("Erro: era esperado uma constante do tipo real perto de "+decod);
+//				System.out.println ("Erro: era esperado uma constante do tipo real perto de "+decod);
 				Interpretador.error=true;
 			}
 		}else{//esperado variavel
 			Varsmanager V = new Varsmanager();
 			int pos =V.getVarPos(decod, vars);
 			if (pos==-1){//ERRO
-				System.out.println ("Erro: era esperado uma variavel do tipo real com o nome "+decod);
+//				System.out.println ("Erro: era esperado uma variavel do tipo real com o nome "+decod);
 				Interpretador.error=true;
 			}else{
 				if (vars [pos] instanceof Real){
 					a = ((Real)vars[pos]).getValor();
 				}else{
-					System.out.println ("Erro: era esperado uma variavel do tipo real com o nome "+decod);
+//					System.out.println ("Erro: era esperado uma variavel do tipo real com o nome "+decod);
 					Interpretador.error=true;
 				}
 			}
@@ -96,8 +96,6 @@ class Ulamanager{
 		return 1;
 	}
 	
-	
-	
 	public double getRealOpe (String operacao, Variavel [] vars){
 		operacao=operacao.trim();
 		if (operacao.startsWith("add ")||operacao.startsWith("sub ")
@@ -134,6 +132,180 @@ class Ulamanager{
 			return argumento;
 		}
 		return 1.0;
+	}
+	
+	public boolean getCondicao(String condicao, Variavel [] vars){
+		condicao = condicao.trim();
+		String token;
+		if (condicao.contains("==")){
+			token =  new String ("==");
+		}else if (condicao.contains("!=")){
+			token =  new String ("!=");
+		}else if (condicao.contains(">=")){
+			token =  new String (">=");
+		}else if (condicao.contains("<=")){
+			token =  new String ("<=");
+		}else if (condicao.contains(">")){
+			token =  new String (">");
+		}else if (condicao.contains("<")){
+			token =  new String ("<");
+		}else{
+			Interpretador.error=true;
+			System.out.println("Erro: era esperado uma condição perto e "+condicao);
+			System.out.println("Erro: não foi encontrado token de condição ==, !=, >=, <=, > e <");
+			return false;
+		}
+		String[] argumentos = condicao.split(token);
+		if (argumentos.length != 2){
+			Interpretador.error=true;
+			System.out.println("Erro: era esperado uma condicao com dois argumentos um antes e outro depois de "+token);
+			return false;
+		}
+		argumentos[0]=argumentos[0].trim();
+		argumentos[1]=argumentos[1].trim();
+		
+		int i1=0, i2=0;
+		double d1=0.0, d2=0.0;
+		boolean b1=true, b2=true;
+		
+		i1=getIntValue(argumentos[0], vars);
+		if (Interpretador.error){
+			Interpretador.error=false;
+			b1=false;
+			d1=getRealValue(argumentos[0], vars);
+		}
+		if (Interpretador.error){
+			System.out.println("Erro: não foi possivel encontrar um valor para "+argumentos[0]);
+			return false;
+		}
+		
+		i2=getIntValue(argumentos[1], vars);
+		if (Interpretador.error){
+			Interpretador.error=false;
+			b2=false;
+			d2=getRealValue(argumentos[1], vars);
+		}
+		if (Interpretador.error){
+			System.out.println("Erro: não foi possivel encontrar um valor para "+argumentos[1]);
+			return false;
+		}
+		if (token.equals("==")){//---------------------------------------==
+			if (b1){
+				if (b2){
+					if (i1==i2) return true;
+					else return false;
+				}else{
+					if (i1==d2) return true;
+					else return false;
+				}
+			}else{
+				if (b2){
+					if (d1==i2) return true;
+					else return false;
+				}else{
+					if (d1==d2) return true;
+					else return false;
+				}
+			}
+		}else if (token.equals("!=")){//---------------------------------------!=
+			if (b1){
+				if (b2){
+					if (i1!=i2) return true;
+					else return false;
+				}else{
+					if (i1!=d2) return true;
+					else return false;
+				}
+			}else{
+				if (b2){
+					if (d1!=i2) return true;
+					else return false;
+				}else{
+					if (d1!=d2) return true;
+					else return false;
+				}
+			}
+			
+		}else if (token.equals(">=")){//--------------------------------------->=
+			if (b1){
+				if (b2){
+					if (i1>=i2) return true;
+					else return false;
+				}else{
+					if (i1>=d2) return true;
+					else return false;
+				}
+			}else{
+				if (b2){
+					if (d1>=i2) return true;
+					else return false;
+				}else{
+					if (d1>=d2) return true;
+					else return false;
+				}
+			}
+			
+		}else if (token.equals("<=")){//---------------------------------------<=
+			if (b1){
+				if (b2){
+					if (i1<=i2) return true;
+					else return false;
+				}else{
+					if (i1<=d2) return true;
+					else return false;
+				}
+			}else{
+				if (b2){
+					if (d1<=i2) return true;
+					else return false;
+				}else{
+					if (d1<=d2) return true;
+					else return false;
+				}
+			}
+			
+		}else if (token.equals(">")){//---------------------------------------->
+			if (b1){
+				if (b2){
+					if (i1>i2) return true;
+					else return false;
+				}else{
+					if (i1>d2) return true;
+					else return false;
+				}
+			}else{
+				if (b2){
+					if (d1>i2) return true;
+					else return false;
+				}else{
+					if (d1>d2) return true;
+					else return false;
+				}
+			}
+			
+		}else if (token.equals("<")){//----------------------------------------<
+			if (b1){
+				if (b2){
+					if (i1<i2) return true;
+					else return false;
+				}else{
+					if (i1<d2) return true;
+					else return false;
+				}
+			}else{
+				if (b2){
+					if (d1<i2) return true;
+					else return false;
+				}else{
+					if (d1<d2) return true;
+					else return false;
+				}
+			}
+			
+		}
+		
+		
+		return false;
 	}
 	
 }

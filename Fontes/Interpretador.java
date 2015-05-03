@@ -224,6 +224,25 @@ class Interpretador {
 				
 				else if (linha.startsWith ("if ")){
 					System.out.println ("Debug: If reconhecido na linha "+ (i+1));
+					if (!(linha.endsWith("["))){
+						Interpretador.error=true;
+						System.out.println("Erro: era esperado um [ no fim da linha "+(i+1));
+						return;
+					}
+					int endindex = linha.lastIndexOf("[");
+//					endindex--;
+					String condicao = linha.substring(3, endindex);
+					System.out.println ("Debug: condição enviada "+condicao);
+					boolean resultado = ula.getCondicao(condicao, vars);
+					if (Interpretador.error){
+						System.out.println("Erro: condição invalida na linha "+(i+1));
+						return;
+					}
+					if (resultado){
+						System.out.println("Debug: a condição da linha "+(i+1)+" é verdadeira");
+					}else{
+						System.out.println("Debug: a condição da linha "+(i+1)+" é falsa");
+					}
 					
 				}
 				

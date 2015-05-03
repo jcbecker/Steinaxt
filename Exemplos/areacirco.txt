@@ -1,8 +1,6 @@
-real pi
-real area
-real raio
-pi = 3.1415
-raio = 5
-raio = raio*raio
-area = area * raio
-show (“a area eh “, area)
+real area, raio = 9
+real raio2 =mul raio & raio
+area =mul raio2 & 3.141592
+real perimetro = mul 3.141592  & 2
+perimetro = mul perimetro & raio
+show *A area eh , area,*um²,*  O perimetro eh , perimetro, *um

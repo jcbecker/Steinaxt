@@ -1,0 +1,27 @@
+int i, j
+real x, y
+i=3
+j=4
+x=3.0
+y=6.5
+if i== j  [
+	show i, * eh igual que ,j
+]
+if i!=j[
+	show i, * eh diferente que ,j
+]
+if i>=j[
+	show i, * eh maior ou igual que ,j
+]
+if i<=j[
+	show i, * eh menor ou igual que ,j
+]
+if i>j[
+	show i, * eh maior que ,j
+]
+if i<j[
+	show i, * eh menor que ,j
+]
+if x==3[
+	show i, * eh igual que , x
+]
