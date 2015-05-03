@@ -1,0 +1,18 @@
+int i=0, j, n=11
+
+loop i<n[
+	j=0
+	loop j<n[
+		if i==j[
+			show *d d
+		]
+		if i!=j[
+			show i, * , j
+		]
+		j=add j & 1
+	]
+	
+	i=add i & 1
+]
+
+int oi
