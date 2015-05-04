@@ -1,3 +1,6 @@
+import java.util.Scanner;
+
+
 class Entradasaida{
 	
 	
@@ -51,11 +54,15 @@ class Entradasaida{
 	
 	public int getIntInput(){
 		int entrada=0;
+		Scanner s= new Scanner (System.in);
+		entrada = s.nextInt();
 		
 		return entrada;
 	}
 	public double getRealInput(){
 		double entrada=0.0;
+		Scanner s= new Scanner (System.in);
+		entrada = s.nextDouble();
 		
 		return entrada;
 	}

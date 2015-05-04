@@ -340,6 +340,47 @@ class Interpretador {
 					System.out.println (argumento);
 					
 				}
+				else if (linha.startsWith ("inputint ")){
+//					System.out.println ("Debug: Entrada de int reconhecida na linha "+(i+1));
+					String destino= new String (linha.substring(9));
+//					System.out.println ("Debug: o argumento de entrada é :"+destino);
+					destino=destino.trim();
+					int pdest= varmanager.getVarPos(destino,vars);
+					if (pdest==-1){
+						Interpretador.error=true;
+						System.out.println("Erro: na linha "+(i+1)+" Era esperado uma variavel perto de "+destino);
+						return;
+					}
+					if (!(vars[pdest] instanceof Int)){
+						Interpretador.error=true;
+						System.out.println("Erro: na linha "+(i+1)+" Era esperado uma variavel do tipo int perto de "+destino);
+						return;
+					}
+					int pvalor=IO.getIntInput();
+					((Int)vars[pdest]).setValor(pvalor);
+					
+				}
+				else if (linha.startsWith ("inputreal ")){
+//					System.out.println ("Debug: Entrada de real reconhecida na linha "+(i+1));
+					String destino= new String (linha.substring(10));
+//					System.out.println ("Debug: o argumento de entrada é :"+destino);
+					destino=destino.trim();
+					int pdest= varmanager.getVarPos(destino,vars);
+					if (pdest==-1){
+						Interpretador.error=true;
+						System.out.println("Erro: na linha "+(i+1)+" Era esperado uma variavel perto de "+destino);
+						return;
+					}
+					if (!(vars[pdest] instanceof Real)){
+						Interpretador.error=true;
+						System.out.println("Erro: na linha "+(i+1)+" Era esperado uma variavel do tipo real perto de "+destino);
+						return;
+					}
+					double pvalor=IO.getRealInput();
+					((Real)vars[pdest]).setValor(pvalor);
+					
+				}
+				
 				
 				else if (linha.contains ("=")){
 //					System.out.println ("Debug: Atribuição reconhecida na linha "+(i+1));

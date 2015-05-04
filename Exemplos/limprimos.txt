@@ -1,4 +1,6 @@
-int n=2, ehprimo, res,p, limite=1000
+int n=2, ehprimo, res,p, limite=100
+show *digite o limite para verificar primos
+inputint limite
 loop n<limite[
 	ehprimo = 1
 	p=2

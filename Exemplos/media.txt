@@ -1,0 +1,7 @@
+real n1, n2
+show *Digite dois numeros para fazer a media
+inputreal n1
+inputreal n2
+real media=add n1&n2
+media=div media & 2
+show *A media entre , n1 , * e , n2, * eh , media 

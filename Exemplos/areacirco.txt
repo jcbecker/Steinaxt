@@ -1,4 +1,6 @@
-real area, raio = 9
+real area, raio
+show *Digite o raio da circonferencia
+inputreal raio
 real raio2 =mul raio & raio
 area =mul raio2 & 3.141592
 real perimetro = mul 3.141592  & 2

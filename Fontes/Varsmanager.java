@@ -54,7 +54,7 @@ class Varsmanager{
 		if (name.equals("int") || name.equals("real") || name.equals("text") || 
 		name.equals("loop") || name.equals("show") || name.equals("if")|| 
 		name.equals("add") || name.equals("sub") || name.equals("mul") || name.equals("div")||
-		name.equals("mod")){
+		name.equals("mod")|| name.equals("inputint")|| name.equals("inputreal")){
 			System.out.println ("Erro na linha "+line+" variavel "+name+" com palavra reservada");
 			return false;
 		}
