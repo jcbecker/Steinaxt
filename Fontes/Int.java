@@ -1,9 +1,10 @@
-/*
-Nomes: Leonardo Bianchini e João C. Becker 
-Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
-
-	Essa classe tem métodos e atributos especificos do tipo Int
+/**
+ *	Nomes: João Carlos Becker e Leonardo Bianchini
+ *	Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
+ *
+ *	Essa classe tem métodos e atributos especificos do tipo Int
 */
+
 public class Int extends Variavel{
 	private int valor;
 	

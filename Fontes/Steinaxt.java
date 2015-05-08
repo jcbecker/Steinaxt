@@ -1,9 +1,11 @@
-/*
-Nomes: Leonardo Bianchini e João C. Becker 
-Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
-
-	Essa classe contém a main do interpretador
+/**
+ *	Nomes: João C. Becker e Leonardo Bianchini
+ *	Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
+ *
+ *	Essa classe contém a main do interpretador
 */
+
+
 import java.util.Scanner;
 import java.io.*;
 

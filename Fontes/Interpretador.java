@@ -1,9 +1,10 @@
-/*
-Nomes: Leonardo Bianchini e João C. Becker 
-Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
-
-	Essa classe contém o interpretador
+/**
+ *	Nomes: João Carlos Becker e Leonardo Bianchini
+ *	Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
+ *
+ *	Essa classe contém o interpretador
 */
+
 
 class Interpretador {
 	private String linhas[];
@@ -19,14 +20,6 @@ class Interpretador {
 		
 	}
 	
-	public void Test (){
-		Varsmanager varmanager;
-		varmanager = new Varsmanager();
-		vars [(varmanager.getNewVarPos(vars))]= new Int ("number",7);
-		vars [(varmanager.getNewVarPos(vars))]= new Real ("pi",3.1415);
-		vars [(varmanager.getNewVarPos(vars))]= new Text ("texto","James_hetfield");
-		
-	}
 	
 	public void interpreta(int i, int endinter) {//parametro int para poder fazer recurção na interpretação, i = linha
 		Varsmanager varmanager;

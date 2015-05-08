@@ -1,3 +1,10 @@
+/**
+ *	Nomes: João C. Becker e Leonardo Bianchini
+ *	Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
+ *
+ *	Essa classe contém o gerenciador de operacoes
+*/
+
 class Ulamanager{
 	
 	public int getIntValue (String decod,Variavel [] vars){//Pega o valor inteiro e retorna ele seja variavel ou constante

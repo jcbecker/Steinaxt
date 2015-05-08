@@ -1,8 +1,8 @@
-/*
-Nomes: Leonardo Bianchini e João C. Becker 
-Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
-
-	Essa classe tem métodos e atributos especificos do tipo Real
+/**
+ *	Nomes: João Carlos Becker e Leonardo Bianchini
+ *	Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
+ *
+ *	Essa classe tem métodos e atributos especificos do tipo Real
 */
 
 public class Real extends Variavel{

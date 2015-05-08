@@ -1,12 +1,10 @@
-/*
-Nomes: Leonardo Bianchini e João C. Becker 
-Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
-
-	Essa classe tem métodos e atributos que as variaveis espessificas
-tem em comum. Sera a classe mãe das variaveis com um tipo
+/**
+ *	Nomes: João Carlos Becker e Leonardo Bianchini
+ *	Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
+ *
+ *	Essa classe tem métodos e atributos que as variaveis especificas 
+	tem em comum. Sera a classe mãe das variaveis com um tipo
 */
-
-
 
 public abstract class Variavel{//abstrato então não pode ser instanciado apenas seus filhos podem
 	private String nome;

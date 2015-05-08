@@ -1,3 +1,10 @@
+/**
+ *	Nomes: João Carlos Becker e Leonardo Bianchini
+ *	Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
+ *
+ *	Essa classe contém os metodos de entrada e saída
+*/
+
 import java.util.Scanner;
 
 

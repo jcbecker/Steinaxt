@@ -1,6 +1,11 @@
+/**
+ *	Nomes: João C. Becker e Leonardo Bianchini
+ *	Emails: joaoc.becker@hotmail.com e leonardobianchini7@gmail.com
+ *
+ *	Essa classe contém o gerenciador de variaveis
+*/
+
 class Varsmanager{
-	
-	
 	
 	public void printVars(Variavel[] vars){//um método teste para saber se as variáveis estão se alocando da maneira correta
 //		System.out.println ("Tamano do vetor é "+vars.length);
