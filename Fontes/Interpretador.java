@@ -33,7 +33,7 @@ class Interpretador {
 				String linha = new String (linhas[i].trim());//faz cópia e retira tabulação, espaços no inicio e final
 				
 				
-				if (linha.startsWith("int ")){//declaração de inteiro
+				if (linha.startsWith("int ")||linha.startsWith("int	")){//declaração de inteiro
 					
 					
 //					System.out.println ("Debug: Declaração de inteiro na linha "+ (i+1));
@@ -118,7 +118,7 @@ class Interpretador {
 					}
 					
 				}
-				else if (linha.startsWith ("real ")){
+				else if (linha.startsWith ("real ")||linha.startsWith ("real	")){
 //					System.out.println ("Debug: Declaração de real na linha"+ (i+1));
 					
 					String varsline = new String (linha.substring (5));
@@ -204,13 +204,13 @@ class Interpretador {
 					
 				}
 				
-				else if (linha.startsWith ("text ")){
+				else if (linha.startsWith ("text ")||linha.startsWith ("text	")){
 //					System.out.println ("Debug: Declaração de string na linha"+ (i+1));
 					
 				}
 				
 				
-				else if (linha.startsWith ("loop ")){
+				else if (linha.startsWith ("loop ")||linha.startsWith ("loop	")){
 //					System.out.println ("Debug: Inicio de laço na linha "+ (i+1));
 					
 					
@@ -274,7 +274,7 @@ class Interpretador {
 					
 				}
 				
-				else if (linha.startsWith ("if ")){
+				else if (linha.startsWith ("if ")||linha.startsWith ("if	")){
 //					System.out.println ("Debug: If reconhecido na linha "+ (i+1));
 					if (!(linha.endsWith("["))){
 						Interpretador.error=true;
@@ -333,7 +333,7 @@ class Interpretador {
 					System.out.println (argumento);
 					
 				}
-				else if (linha.startsWith ("inputint ")){
+				else if (linha.startsWith ("inputint ")||linha.startsWith ("inputint	")){
 //					System.out.println ("Debug: Entrada de int reconhecida na linha "+(i+1));
 					String destino= new String (linha.substring(9));
 //					System.out.println ("Debug: o argumento de entrada é :"+destino);
@@ -353,7 +353,7 @@ class Interpretador {
 					((Int)vars[pdest]).setValor(pvalor);
 					
 				}
-				else if (linha.startsWith ("inputreal ")){
+				else if (linha.startsWith ("inputreal ")||linha.startsWith ("inputreal	")){
 //					System.out.println ("Debug: Entrada de real reconhecida na linha "+(i+1));
 					String destino= new String (linha.substring(10));
 //					System.out.println ("Debug: o argumento de entrada é :"+destino);

@@ -1,17 +1,17 @@
-int n=2, ehprimo, res,p, limite=100
-show *digite o limite para verificar primos
-inputint limite
-loop n<limite[
+int	n=2, ehprimo, res,p, limite=100
+show	*digite o limite para verificar primos
+inputint	limite
+loop	n<=limite[
 	ehprimo = 1
 	p=2
 	loop p<n[
 		res=mod n & p
-		if res ==0 [
+		if   res ==0 [
 			ehprimo=0
 		]
 		p=add p & 1
 	]
-	if ehprimo==1[
+	if	ehprimo==1[
 		show n,* eh um numero primo
 	]
 	n= add n&1 
