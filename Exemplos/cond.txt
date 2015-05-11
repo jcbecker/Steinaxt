@@ -1,8 +1,8 @@
 int i, j
 real x, y
-i=3
+i=6
 j=3
-x=3.0
+x=7.0
 y=6.5
 if i== j  [
 	show i, * eh igual que ,j

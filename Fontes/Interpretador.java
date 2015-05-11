@@ -412,8 +412,20 @@ class Interpretador {
 //					System.out.println ("Debug: fecha escopo reconhecido na linha "+(i+1));
 					
 				}
+				else if (linha.isEmpty()){
+//					System.out.println ("Debug: a linha "+(i+1)+"ta vazia");
+				}
+				else {
+					Interpretador.error=true;
+					System.out.println("Erro: comando não reconhecido na linha "+(i+1));
+					return;
+				}
 				
 //				System.out.println("Linha " + (i + 1) + ":" + linha);
+				
+			}
+			else {
+				//System.out.println ("Debug: a linha(S) "+(i+1)+"eh null");
 				
 			}
 		}
