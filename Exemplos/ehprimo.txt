@@ -1,0 +1,17 @@
+int n, ehprimo=1, inc=2, res
+show *digite um numero para verificar se é primo
+inputint n
+loop inc<n[
+	res=mod n&inc
+	if res == 0[
+		ehprimo=0
+		inc=n
+	]
+	inc=add inc&1
+]
+if ehprimo==1[
+	show n, * é um numero primo
+]
+if ehprimo==0[
+	show n, * não é um numero primo
+]

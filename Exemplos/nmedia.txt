@@ -1,0 +1,12 @@
+real n, som=0, e
+show *digite a quantidade de entradas
+inputreal n
+real c=n
+loop c>0[
+	show *digite uma entrada
+	inputreal e
+	som=add e&som
+	c=sub c&1
+]
+real media =div som&n
+show *a media é ,media
