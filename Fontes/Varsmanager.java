@@ -8,7 +8,6 @@
 class Varsmanager{
 
 	public Variavel vars[];
-
 	public Varsmanager (){
 		vars = new Variavel [1000];
 	}
@@ -97,6 +96,102 @@ class Varsmanager{
 		return pos;
 	}
 
+/********************************ATRIBUICAO DE VARIAVEL*************************************/
+public void declara (int tipo, String linha, int i, Ulamanager ula){
+		String varsline = new String (linha.substring (4));
+		if (!(varsline.isEmpty())){
+			if (varsline.contains(",")){//declara mais que um inteiro
+				String[] varofline = varsline.split(",");
 
+				for (int k=0; k<varofline.length; k++){
+					if (varofline[k].contains("=")){
+						String[] atributo = varofline[k].split("=");
+
+						if (atributo.length != 2){
+							System.out.println ("Erro na linha "+(i+1)+" declaração não reconhecida");
+							System.out.println ("Erro perto de "+ varofline[k]);
+							return ;
+						}
+						varofline[k]=atributo[0].trim();
+						int a= ula.getIntOpe(atributo[1]);
+						if (Interpretador.error){
+							System.out.println ("Erro na linha "+(i+1));
+							return;
+						}
+						if (validname(varofline[k], i+1)){
+							if (tipo==1){
+								vars [getNewVarPos()]= new Int (varofline[k],a);
+							} else {
+								vars [getNewVarPos()]= new Real (varofline[k],a);
+							}
+							//falta add o error de getNewVarPos(vars) retornar -1
+						}else{
+							return;
+						}
+					}
+					else{//declara sem atribuição
+						varofline[k]=varofline[k].trim();
+						if (validname(varofline[k], i+1)){
+							if (tipo==1){
+								vars [getNewVarPos()]= new Int (varofline[k],0);
+							} else {
+								vars [getNewVarPos()]= new Real (varofline[k],0);
+							}
+							//falta add error de getNewVarPos(vars) retornar -1
+						}else{
+							return;
+						}
+					}
+		//			System.out.println ("Debug: "+varofline[k]);
+				}
+			}else{
+				if (varsline.contains("=")){//uma variavel com atrbuição
+					String[] atributo = varsline.split("=");
+					if (atributo.length != 2){
+						System.out.println ("Erro na linha "+(i+1)+" declaração não reconhecida");
+						System.out.println ("Erro perto de "+ varsline);
+						return ;
+					}
+					varsline=atributo[0].trim();
+					int a= ula.getIntOpe(atributo[1]);
+					if(Interpretador.error){
+						System.out.println("Erro: na linha "+(i+1));
+						return;
+					}
+					if (validname(varsline, i+1)){
+						if (tipo==1){
+							vars [getNewVarPos()]= new Int (varsline,a);
+						} else {
+							vars [getNewVarPos()]= new Real (varsline,a);
+						}
+						vars [getNewVarPos()]= new Int (varsline,a);
+						//falta add o error de getNewVarPos(vars) retornar -1
+					}else{
+						return;
+					}
+
+
+				}else{//uma variavel sem atribuição
+					varsline=varsline.trim();
+					if (validname(varsline, i+1)){
+						if (tipo==1){
+							vars [getNewVarPos()]= new Int (varsline,0);
+						} else {
+							vars [getNewVarPos()]= new Real (varsline,0);
+						}
+						//falta add o error de getNewVarPos(vars) retornar -1
+					}else{
+						return;
+					}
+
+				}
+
+			}
+
+		}else{
+			System.out.println ("Erro na linha "+(i+1)+" declaração não reconhecida");
+			return;
+		}
+	}
 
 }
