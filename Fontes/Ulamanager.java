@@ -6,8 +6,16 @@
 */
 
 class Ulamanager{
-	
-	public int getIntValue (String decod,Variavel [] vars){//Pega o valor inteiro e retorna ele seja variavel ou constante
+
+	public Interpretador i;
+
+	public Ulamanager(Interpretador o){
+
+		this.i = o;
+
+	}
+
+	public int getIntValue (String decod){//Pega o valor inteiro e retorna ele seja variavel ou constante
 		decod = decod.trim();
 		int a=0;
 		if ( (decod.charAt(0) >= '0' && decod.charAt(0) <= '9') || decod.charAt(0) == '-'){//esperado constante
@@ -18,25 +26,24 @@ class Ulamanager{
 				Interpretador.error=true;
 			}
 		}else{//esperado variavel
-			Varsmanager V = new Varsmanager();
-			int pos =V.getVarPos(decod, vars);
+			int pos = i.varmanager.getVarPos(decod);
 			if (pos==-1){//ERRO
 //				System.out.println ("Erro: era esperado uma variavel do tipo int com o nome "+decod);
 				Interpretador.error=true;
 			}else{
-				if (vars [pos] instanceof Int){
-					a = ((Int)vars[pos]).getValor();
+				if (i.varmanager.vars [pos] instanceof Int){
+					a = ((Int)i.varmanager.vars[pos]).getValor();
 				}else{
 //					System.out.println ("Erro: era esperado uma variavel do tipo int com o nome "+decod);
 					Interpretador.error=true;
 				}
 			}
-			
+
 		}
 		return a;
 	}
-	
-	public double getRealValue (String decod,Variavel [] vars){//Pega o valor real e retorna ele seja variavel ou constante
+
+	public double getRealValue (String decod){//Pega o valor real e retorna ele seja variavel ou constante
 		decod = decod.trim();
 		double a=0.0;
 		if ( (decod.charAt(0) >= '0' && decod.charAt(0) <= '9') || decod.charAt(0) == '-'){//esperado constante
@@ -47,25 +54,24 @@ class Ulamanager{
 				Interpretador.error=true;
 			}
 		}else{//esperado variavel
-			Varsmanager V = new Varsmanager();
-			int pos =V.getVarPos(decod, vars);
+			int pos = i.varmanager.getVarPos(decod);
 			if (pos==-1){//ERRO
 //				System.out.println ("Erro: era esperado uma variavel do tipo real com o nome "+decod);
 				Interpretador.error=true;
 			}else{
-				if (vars [pos] instanceof Real){
-					a = ((Real)vars[pos]).getValor();
+				if (i.varmanager.vars [pos] instanceof Real){
+					a = ((Real)i.varmanager.vars[pos]).getValor();
 				}else{
 //					System.out.println ("Erro: era esperado uma variavel do tipo real com o nome "+decod);
 					Interpretador.error=true;
 				}
 			}
-			
+
 		}
 		return a;
 	}
-	
-	public int getIntOpe (String operacao, Variavel [] vars){
+
+	public int getIntOpe (String operacao){
 		operacao=operacao.trim();
 		if (operacao.startsWith("add ")||operacao.startsWith("sub ")
 		||  operacao.startsWith("mul ")||operacao.startsWith("div ")
@@ -85,25 +91,25 @@ class Ulamanager{
 				return 1;
 			}
 			int operador1, operador2;
-			operador1 = getIntValue(atr[0],vars);
-			operador2 = getIntValue(atr[1],vars);
+			operador1 = getIntValue(atr[0]);
+			operador2 = getIntValue(atr[1]);
 			if (Interpretador.error) return 1;
-			
+
 			if (operacao.startsWith("add ")) return operador1 + operador2;
 			else if (operacao.startsWith("sub ")) return operador1 - operador2;
 			else if (operacao.startsWith("mul ")) return operador1 * operador2;
 			else if (operacao.startsWith("div ")) return operador1 / operador2;
 			else if (operacao.startsWith("mod ")) return operador1 % operador2;
-			
+
 		}else{
-			int argumento= getIntValue(operacao, vars);
+			int argumento= getIntValue(operacao);
 			if (Interpretador.error) System.out.println ("Erro: era esperado uma atribuição de argumento unico do tipo int perto de "+operacao);
 			return argumento;
 		}
 		return 1;
 	}
-	
-	public double getRealOpe (String operacao, Variavel [] vars){
+
+	public double getRealOpe (String operacao){
 		operacao=operacao.trim();
 		if (operacao.startsWith("add ")||operacao.startsWith("sub ")
 		||  operacao.startsWith("mul ")||operacao.startsWith("div ")
@@ -123,25 +129,25 @@ class Ulamanager{
 				return 1.0;
 			}
 			double operador1, operador2;
-			operador1 = getRealValue(atr[0],vars);
-			operador2 = getRealValue(atr[1],vars);
+			operador1 = getRealValue(atr[0]);
+			operador2 = getRealValue(atr[1]);
 			if (Interpretador.error) return 1.0;
-			
+
 			if (operacao.startsWith("add ")) return operador1 + operador2;
 			else if (operacao.startsWith("sub ")) return operador1 - operador2;
 			else if (operacao.startsWith("mul ")) return operador1 * operador2;
 			else if (operacao.startsWith("div ")) return operador1 / operador2;
 			else if (operacao.startsWith("mod ")) return operador1 % operador2;
-			
+
 		}else{
-			double argumento= getRealValue(operacao, vars);
+			double argumento= getRealValue(operacao);
 			if (Interpretador.error) System.out.println ("Erro: era esperado uma atribuição de argumento unico do tipo real perto de "+operacao);
 			return argumento;
 		}
 		return 1.0;
 	}
-	
-	public boolean getCondicao(String condicao, Variavel [] vars){
+
+	public boolean getCondicao(String condicao){
 		condicao = condicao.trim();
 		String token;
 		if (condicao.contains("==")){
@@ -170,27 +176,27 @@ class Ulamanager{
 		}
 		argumentos[0]=argumentos[0].trim();
 		argumentos[1]=argumentos[1].trim();
-		
+
 		int i1=0, i2=0;
 		double d1=0.0, d2=0.0;
 		boolean b1=true, b2=true;
-		
-		i1=getIntValue(argumentos[0], vars);
+
+		i1=getIntValue(argumentos[0]);
 		if (Interpretador.error){
 			Interpretador.error=false;
 			b1=false;
-			d1=getRealValue(argumentos[0], vars);
+			d1=getRealValue(argumentos[0]);
 		}
 		if (Interpretador.error){
 			System.out.println("Erro: não foi possivel encontrar um valor para "+argumentos[0]);
 			return false;
 		}
-		
-		i2=getIntValue(argumentos[1], vars);
+
+		i2=getIntValue(argumentos[1]);
 		if (Interpretador.error){
 			Interpretador.error=false;
 			b2=false;
-			d2=getRealValue(argumentos[1], vars);
+			d2=getRealValue(argumentos[1]);
 		}
 		if (Interpretador.error){
 			System.out.println("Erro: não foi possivel encontrar um valor para "+argumentos[1]);
@@ -232,7 +238,7 @@ class Ulamanager{
 					else return false;
 				}
 			}
-			
+
 		}else if (token.equals(">=")){//--------------------------------------->=
 			if (b1){
 				if (b2){
@@ -251,7 +257,7 @@ class Ulamanager{
 					else return false;
 				}
 			}
-			
+
 		}else if (token.equals("<=")){//---------------------------------------<=
 			if (b1){
 				if (b2){
@@ -270,7 +276,7 @@ class Ulamanager{
 					else return false;
 				}
 			}
-			
+
 		}else if (token.equals(">")){//---------------------------------------->
 			if (b1){
 				if (b2){
@@ -289,7 +295,7 @@ class Ulamanager{
 					else return false;
 				}
 			}
-			
+
 		}else if (token.equals("<")){//----------------------------------------<
 			if (b1){
 				if (b2){
@@ -308,11 +314,11 @@ class Ulamanager{
 					else return false;
 				}
 			}
-			
+
 		}
-		
-		
+
+
 		return false;
 	}
-	
+
 }

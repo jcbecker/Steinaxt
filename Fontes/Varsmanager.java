@@ -6,8 +6,14 @@
 */
 
 class Varsmanager{
-	
-	public void printVars(Variavel[] vars){//um método teste para saber se as variáveis estão se alocando da maneira correta
+
+	public Variavel vars[];
+
+	public Varsmanager (){
+		vars = new Variavel [1000];
+	}
+
+	public void printVars(){//um método teste para saber se as variáveis estão se alocando da maneira correta
 //		System.out.println ("Tamano do vetor é "+vars.length);
 		for (int i = 0;i<vars.length; i++){
 			if (vars [i] == null){
@@ -26,19 +32,19 @@ class Varsmanager{
 			else{
 				System.out.println ("Variavel da posição "+i +" não reconhecida");
 			}
-			
+
 		}
-		
+
 	}
-	
-	public boolean validname(String name, int line, Variavel[] vars){//verifica se string name é um nome valido para variavel
-		
+
+	public boolean validname(String name, int line){//verifica se string name é um nome valido para variavel
+
 		for (int i=0; vars[i]!= null; i++){
 			if (name.equals(vars[i].getNome())){
 				System.out.println ("Erro na linha "+line+" já existe uma variavel com o nome "+name);
 				return false;
 			}
-			
+
 		}
 		if (name.contains (" ")|| name.contains ("!")|| name.contains ("@")
 		||  name.contains ("#")|| name.contains ("$")|| name.contains ("%")
@@ -48,16 +54,16 @@ class Varsmanager{
 		||  name.contains (".")|| name.contains ("£")|| name.contains ("¬")){
 			System.out.println ("Erro na linha "+line+" variavel "+name+" obtem caracter especial");
 			return false;
-			
+
 		}
 		if ( name.charAt(0) >= '0' && name.charAt(0) <= '9'){
 			System.out.println ("Erro na linha "+line+" variavel "+name+" começa com numero");
 			return false;
-			
+
 		}
-		
-		if (name.equals("int") || name.equals("real") || name.equals("text") || 
-		name.equals("loop") || name.equals("show") || name.equals("if")|| 
+
+		if (name.equals("int") || name.equals("real") || name.equals("text") ||
+		name.equals("loop") || name.equals("show") || name.equals("if")||
 		name.equals("add") || name.equals("sub") || name.equals("mul") || name.equals("div")||
 		name.equals("mod")|| name.equals("inputint")|| name.equals("inputreal")){
 			System.out.println ("Erro na linha "+line+" variavel "+name+" com palavra reservada");
@@ -65,11 +71,11 @@ class Varsmanager{
 		}
 		return true;
 	}
-	
-	public int getNewVarPos (Variavel[] v){//esse método retorna a primeira posição livre, -1 caso esteja sem espaço
+
+	public int getNewVarPos (){//esse método retorna a primeira posição livre, -1 caso esteja sem espaço
 		int k=-1;
 		for (int i=0;;i++){
-			if (v[i]==null){
+			if (vars[i]==null){
 				 k=i;
 				 break;
 			 }
@@ -77,20 +83,20 @@ class Varsmanager{
 		if (k==-1) System.out.println ("O vetor de variaveis esta cheio");
 		return k;
 	}
-	
-	public int getVarPos (String pname, Variavel[] v){//retorna a posição da variavel com o nome pname
+
+	public int getVarPos (String pname){//retorna a posição da variavel com o nome pname
 		int pos = -1;
 		pname = pname.trim();
-		for (int i=0;v[i]!=null;i++){
-			if (pname.equals(v[i].getNome())){
+		for (int i=0;vars[i]!=null;i++){
+			if (pname.equals(vars[i].getNome())){
 				pos=i;
 				break;
 			}
-			
+
 		}
 		return pos;
 	}
-	
-	
-	
+
+
+
 }
